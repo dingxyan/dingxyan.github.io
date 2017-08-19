@@ -4,7 +4,7 @@
  <title>久矻矻</title>
  <link href="http://http://coolshell.info/atom.xml" rel="self"/>
  <link href="http://http://coolshell.info"/>
- <updated>2017-08-19T08:59:09+00:00</updated>
+ <updated>2017-08-19T10:11:55+00:00</updated>
  <author>
    <name>dxy</name>
    <email>dingxyan@163.com</email>
@@ -12,499 +12,94 @@
 
  
  <entry>
-   <title>彻底理解Gradle的任务</title>
-   <link href="http://http://coolshell.info/blog/2017/08/new-first.html"/>
+   <title>Javascript权威指南学习笔记1：第二章（词法结构）</title>
+   <link href="http://http://coolshell.info/blog/2017/08/js%E5%9F%BA%E7%A1%80-2.html"/>
    <updated>2017-08-19T00:00:00+00:00</updated>
-   <id>/blog/2017/08/new-first</id>
-   <content type="html">&lt;p&gt;在Gradle的build文件中，任务是构建活动最基本的单元，它是许多构建指令的集合，下面我将仔细介绍Gradle任务的细节。&lt;/p&gt;
-
-&lt;p&gt;##声明一个任务&lt;/p&gt;
-
-&lt;p&gt;声明任务很简单，你只需要一个任务名：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;你可以在命令行中使用&lt;code class=&quot;highlighter-rouge&quot;&gt;gradle tasks&lt;/code&gt;来查看所有的任务：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;------------------------------------------------------------
-Root Project
-------------------------------------------------------------
-Help tasks
-----------
-dependencies - Displays the dependencies of root project 'task-lab'.
-help - Displays a help message
-projects - Displays the subprojects of root project 'task-lab'.
-properties - Displays the properties of root project 'task-lab'.
-13
-tasks - Displays the tasks in root project 'task-lab'.
-Other tasks
------------
-hello
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;##任务的动作&lt;/p&gt;
-
-&lt;p&gt;很显然执行&lt;code class=&quot;highlighter-rouge&quot;&gt;gradle hello&lt;/code&gt;不会有任何结果，因为你没有给这个任务添加动作，我们可以通过左移操作符给任务添加一个动作(在Groovy语言中左移操作符可以重载成在任务的最后添加一个动作)：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello,world'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;我们可以在任务的后面引用前面声明的任务:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello,'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'world'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;接下来在命令行中运行&lt;code class=&quot;highlighter-rouge&quot;&gt;gradle hello&lt;/code&gt;,输出如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gradle hello
-hello, world
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;##任务的配置&lt;/p&gt;
-
-&lt;p&gt;Gradle新手可能会很容易混淆任务的动作和配置，看下面这个例子：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'connect to database'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'update database schema'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'configuring database connection'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//这里没有左移操作符&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;运行这个构建脚本，猜猜输出是什么：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//－b 选项用于指定gradle构建脚本文件名
-$ gradle -b scratch.gradle initializeDatabase
-configuring database connection
-:initializeDatabase
-connect to database
-update database schema
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;如果第三个代码块我们用的是«操作浮，这个消息就是在最后而不是最先打印出来了，我把用{}扩起来的部分统称为一个闭包，上面第三个闭包并不是任务的动作，他直接使用了任务名+闭包，在这里它是一个配置块。在Gradle的构建生命周期里配置阶段是在执行阶段前运行的，所以这个块里的代码最先执行了。&lt;/p&gt;
-
-&lt;p&gt;Gradle的构建生命周期分为三部分，初始化、配置和执行阶段。在执行阶段，任务按照他们的依赖顺序按序执行，在配置阶段所有的任务都转换成Gradle的内部对象模型，通常叫做有向无环图(DAG)。图的节点就是构建脚本里的任务，任务与任务之间可以定义依赖关系。初始化阶段是Gradle用来找出哪些项目会参与到项目构建中，这在多项目构建中很重要。&lt;/p&gt;
-
-&lt;p&gt;和动作闭包一样，配置闭包也具有可加性，你可以像下面这样编写构建脚本：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'connect to database'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'update database schema'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'configuring '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;initializeDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'database connection'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;配置块是用来放置变量和数据结构的地方，这些可能会在任务的执行过程中用到。&lt;/p&gt;
-
-&lt;p&gt;##一切任务都是对象&lt;/p&gt;
-
-&lt;p&gt;前面讲过Gradle会在任务执行之前把他们创建成内部的对象模型，每一个你声明的任务都是一个任务对象，这个对象有自己的属性和方法，就和Java语言里的对象一样，我们可以控制每个任务对象的类型。默认情况每一个新创建的任务都是DefaultTask类型，就像Java语言里的java.lang.Object一样，每一个Gradle任务都继承自DefaultTask类型，你也可以定义自己的类型。DefaultTask事实上没有做任务事情，不过它具有基本的属性和方法用来和Gradle项目模型交互。接下来我会一一介绍每个任务都有的方法和属性。&lt;/p&gt;
-
-&lt;p&gt;##DefaultTask的方法&lt;/p&gt;
-
-&lt;p&gt;###dependsOn(task)&lt;/p&gt;
-
-&lt;p&gt;用于给任务添加一个依赖的任务，被依赖的任务总是在依赖它的任务之前运行，你可以有多种方式声明这种依赖关系，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//最简单的方法&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//使用&amp;lt;&amp;lt;声明依赖&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 使用单引号声明依赖&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'createSchema'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//显式调用dependsOn方法&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 快捷方法&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loadTestData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;任务可以依赖多个任务，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//每次声明一个任务&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compileTestClasses&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 依次传递任务名&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compileTestClasses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 显式调用方法&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compileTestClasses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//快捷方式&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;world&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compileTestClasses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;###doFirst(closure)&lt;/p&gt;
-
-&lt;p&gt;在任务的最开始添加一个可执行的代码块，doFirst方法允许你添加动作到现有的任务中，这个任务是在其他插件中定义的，你没有办法修改，但是你可以多次调用doFirst方法在任务执行之前添加一些代码块。
-你可以使用任务对象调用doFirst方法，传递一个闭包给这个方法，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 任务现有的代码&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'load test data'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'create schema'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;然后运行gradle setupDatabaseTests,结果如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gradle setupDatabaseTests
-:setupDatabaseTests
-create schema
-load test data
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;你也可以在任务的配置块里面调用doFirst方法，不过要记住配置块里的代码在任务的动作之前执行：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'load test data'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;doFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'create schema'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;doFirst方法也是可加的，你可以多次调用这个方法在任务的最前面添加代码块，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'load test data'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'create database schema'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;setupDatabaseTests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'drop database schema'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;运行结果如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gradle world
-:setupDatabaseTests
-drop database schema
-create database schema
-load test data
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;###doLast(closure)&lt;/p&gt;
-
-&lt;p&gt;doLast方法和doFirst方法很类似，它用于在任务的最后面添加一段代码，这里就不重复了。&lt;/p&gt;
-
-&lt;p&gt;###onlyIf(closure)&lt;/p&gt;
-
-&lt;p&gt;onlyIf方法用于决定是否执行一个任务，这里使用闭包返回的值来作为onlyIf的判断依据，在Groovy语言中，一个闭包的最后一个表达式用来作为这个闭包的返回值，即使你没有声明return语句，看一个例子：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'create database schema'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loadTestData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'load test data'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;loadTestData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onlyIf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'load.data'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//当系统属性load.data为true时这个闭包返回true&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;看下下面的运行结果：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//这里没有系统属性load.data
-$ build loadTestData
-create database schema
-:loadTestData SKIPPED
-
-//在命令行中传递系统属性
-$ gradle -Dload.data=true loadTestData
-:createSchema
-create database schema
-:loadTestData
-load test data
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;##DefaultTask的属性&lt;/p&gt;
-
-&lt;p&gt;###didWork&lt;/p&gt;
-
-&lt;p&gt;一个用来标识任务是否成功完成的boolean属性，不是所有的任务都是在完成之后设置didWork变量，一些自带的任务比如Compile,Copy和Delete会根据动作是否执行成功来设置这个变量，JavaCompiler任务的实现是只要有一个文件成功编译就返回true,你可以在你自己的任务中设置didWork属性来反映构建代码的执行结果，举例如下：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java'&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;emailMe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compileJava&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compileJava&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;didWork&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'SEND EMAIL ANNOUNCING SUCCESS'&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;运行结果如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gradle -b didWork.gradle emailMe
-SEND EMAIL ANNOUNCING SUCCESS
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;###enabled&lt;/p&gt;
-
-&lt;p&gt;一个用来设置任务是否会执行的一个属性，你可以设置enabled为false不让它运行，但是它依赖的任务依然会运行。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;templates&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'process email templates'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sendEmails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;templates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'send emails'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;sendEmails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;运行结果如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gradle -b enabled.gradle sendEmails
-:templates
-process email templates
-:sendEmails SKIPPED
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;###path&lt;/p&gt;
-
-&lt;p&gt;一个字符串属性包含任务的全限定路径名，默认是一个冒号加上任务名，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;echoMyPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;THIS TASK'S PATH IS ${path}&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;运行一下，输出如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gradle -b path.gradle echoMyPath
-THIS TASK'S PATH IS :echoMyPath
-$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;最开始的冒号表示这个任务在最顶级的构建文件里面，由于Gradle支持多项目构建，一个项目里面可能有多个子项目，假如echoMyPath在子项目subProject构建文件中,那它的全限定路径名就是:subProject:echoMyPath。&lt;/p&gt;
-
-&lt;p&gt;###description&lt;/p&gt;
-
-&lt;p&gt;正如它的名字一样，这个用来给一个任务添加一段容易阅读的描述，你可以使用如下几种方法给任务添加描述。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;helloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;description:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Says hello to the world'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello, world'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;helloWorld&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello, world'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;helloWorld&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;description&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Says hello to the world'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// Another way to do it&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;helloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Says hello to the world'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;##任务的类型&lt;/p&gt;
-
-&lt;p&gt;我前面说过每个任务都有一个类型。除了DefaultTask之外，还有许多其他类型，你可以继承DefaultTask来声明新的类型，下面介绍几种比较重要的类型，以后可能经常会用到。&lt;/p&gt;
-
-&lt;p&gt;###Copy&lt;/p&gt;
-
-&lt;p&gt;Copy任务用于把文件从一个地方复制到另一个地方，你可以设置源目录、目标目录和要复制的文件类型，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;copyFiles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'resources'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'target'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**/*.xml'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**/*.txt'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**/*.properties'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;如果目标目录不存在,Copy任务会自动创建，上面这个任务会把resources目录下所有的xml、txt和propertied文件都复制到target目录。&lt;/p&gt;
-
-&lt;p&gt;###Jar&lt;/p&gt;
-
-&lt;p&gt;Jar任务用于打包源代码生成Jar文件，Java插件就自带这种类型，任务类型就叫做jar,这个任务把源代码文件和资源文件打包成Jar文件，并保存在build/libs目录下，文件名默认是用项目的名称。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java'&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;customJar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Jar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;manifest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//设置一些属性值(以键值对的形式)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;attributes&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;firstKey:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'firstValue'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;secondKey:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'secondValue'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//文件名&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;archiveName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello.jar'&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//目标路径&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;destinationDir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${buildDir}/jars&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//file方法用于把一个字符串变成文件对象&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//要打包的文件&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sourceSets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;classes&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;###JavaExec&lt;/p&gt;
-
-&lt;p&gt;用于执行一个Java类的main()方法。举例说明：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java'&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//maven中央仓库&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;mavenCentral&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//项目依赖&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'commons-codec:commons-codec:1.5'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JavaExec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    
-&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.gradle.example.commandline.MetaphoneEncoder'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The rain in Spain falls mainly in the plain&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sourceSets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;classesDir&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configurations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;runtime&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;这个构建文件声明了一个外部依赖，Apache Commons Codec库。一般情况下，在命令行运行一个class文件的步骤是编译Java源文件，然后在命令行中设置class文件的路径和依赖的库文件。我们上面encode任务声明了main函数所在的类，给他传递了命令行参数，设置classpath参数。&lt;/p&gt;
-
-&lt;p&gt;##编写自定义的任务类型&lt;/p&gt;
-
-&lt;p&gt;如果Gradle自带的任务类型不满足你的工作需求时，最简单的办法就是编写自定义的任务类型，Gradle提供了多种方法来实现，这里我介绍两种最常用的方法。&lt;/p&gt;
-
-&lt;p&gt;###在Build文件中编写自定义任务类型&lt;/p&gt;
-
-&lt;p&gt;假设你的构建脚本需要对MySQL数据库执行一些随机的查询，下面我们来编写一个任务执行数据库查询：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySqlTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'CREATE DATABASE IF NOT EXISTS example'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySqlTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ALL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRIVILEGES&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exampleuser&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@localhost&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'passw0rd'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySqlTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'exampleuser'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'passw0rd'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'example'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BIGINT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MySqlTask&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DefaultTask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//声明任务的属性&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hostname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'localhost'&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3306&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//表示这是任务的动作&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@TaskAction&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;runQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mysql -u ${username} -p${password} -h    ${hostname}-P ${port} ${database} -e &quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e &quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;commandLine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;上面的MySqlTask继承自DefaultTask,所有的任务都必须继承自这个类或者它的子类。任务声明了几个属性，然后声明了一个方法runQuery(),这个方法用@TaskAction注解了，表示这个方法会在任务执行的时候执行。最上面定义的三个任务都声明为MySqlTask类型，因此他们都自动继承了它的属性和方法，有些属性有默认值，你可以覆写这些默认值，来添加你的逻辑。&lt;/p&gt;
-
-&lt;p&gt;###在源码树中定义自定义任务类型&lt;/p&gt;
-
-&lt;p&gt;前面你在build文件中定义了一个自定义的MySqlTask类型，这样的缺点就是你无法在其他构建文件中使用它，只能把它的源码复制过去。我们可以在源码树的buildSrc目录下定义自定义任务类型，这个目录下的文件会被自动编译然后添加到项目的classpath中，如下所示：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//任务MySqlTask并没有定义在构建脚本中&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySqlTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'CREATE DATABASE IF NOT EXISTS example'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySqlTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ALL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRIVILEGES&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exampleuser&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@localhost&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'passw0rd'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySqlTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'exampleuser'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'passw0rd'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'example'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BIGINT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;在buildSrc目录下新建一个文件MysqlTask.groovy,然后添加下面的代码：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.gradle.api.DefaultTask&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.gradle.api.tasks.TaskAction&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MySqlTask&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DefaultTask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//声明任务的属性&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hostname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'localhost'&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3306&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//表示这是任务的动作&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@TaskAction&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;runQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mysql -u ${username} -p${password} -h    ${hostname}-P ${port} ${database} -e &quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e &quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;commandLine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;编译之后buildSrc目录树如下所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/gradle-tasks.png&quot; alt=&quot;/images/gradle-tasks.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;对Gradle的任务介绍就到此为止，大家如果还有不懂的地方可以去查看Gradle的官方文档&lt;a href=&quot;https://docs.gradle.org/current/release-notes&quot;&gt;https://docs.gradle.org/current/release-notes&lt;/a&gt;。&lt;/p&gt;
+   <id>/blog/2017/08/js基础-2</id>
+   <content type="html">&lt;h3 id=&quot;js编码&quot;&gt;JS编码&lt;/h3&gt;
+&lt;p&gt;JS的编码基于Unicode编码，是ASCII以及Latin-1的超集，支持几乎所有语言；&lt;/p&gt;
+&lt;h3 id=&quot;js区分大小写&quot;&gt;js区分大小写&lt;/h3&gt;
+&lt;h3 id=&quot;js解析&quot;&gt;js解析&lt;/h3&gt;
+&lt;p&gt;JS解析的时候会过滤掉空格，制表符，换页符等；
+对于回车符号，如果结尾有分号，会被忽略，否则，会做以下处理：
+&lt;strong&gt;如果当前行与下一行不能合在一起被解析，那么当前行会被加上分号&lt;/strong&gt;，例如
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+var a  
+a  
+=  
+3  
+console.log(a)
+&lt;/code&gt;
+会被解析为
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+var a;  
+a=3;  
+console.log(a);
+&lt;/code&gt;
+再如：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+var p = a+b+f  
+(c+d).toString()
+&lt;/code&gt;
+会被解析为
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+var p = a+b+f(c+d).toString(); 
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;其中有2种情况异常：&lt;/strong&gt;
+情况1：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+return  
+true 
+&lt;/code&gt;
+会被解析为
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+return;  
+true;
+&lt;/code&gt;
+因此 return 后面不要跟回车；
+情况2：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+x  
+++  
+y
+&lt;/code&gt;
+会被解析为
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+x;  
+++y; &lt;/code&gt;
+分号可省略，省略有风险。在写组件的时候，往往习惯在开头加一个分号，这样可以防止之前没有分号，导致的解析错误。&lt;/p&gt;
+&lt;h3 id=&quot;保留字&quot;&gt;保留字&lt;/h3&gt;
+&lt;p&gt;js标识符规定以字母、下划线、$开头；
+js有很多保留字，不能用于变量命名，例如 class, const, enum, export, extends, import, super, 以及在严格模式下的保留字interface, implements, let, private, public, yield, package, protected, static, 严格模式下并非保留字但不能用于保留字的 arguments, eval;
+总之，高级语言中的保留字基本都被js作为保留字了，尽管js目前不一定使用这些保留字。
+出于可移植以及易于书写的考虑，一般用ASCII字母和数字来书写标识符，然而js也是可以解析Unicode字符的，这些不常用。&lt;/p&gt;
+&lt;h3 id=&quot;特有全局变量及函数&quot;&gt;特有全局变量及函数&lt;/h3&gt;
+&lt;p&gt;js有特定的全局变量及函数，用到的时候再进行总结。&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Javascript权威指南学习笔记1：第一章</title>
+   <link href="http://http://coolshell.info/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html"/>
+   <updated>2017-08-19T00:00:00+00:00</updated>
+   <id>/blog/2017/08/js基础-1</id>
+   <content type="html">&lt;p&gt;工作一年，对前端有了一些自己的理解，前端知识太多，于是决定从学习基础知识开始，重新将基础知识进行整理，希望弥补漏洞，并温故知新。&lt;/p&gt;
+
+&lt;p&gt;第一章没有太多核心知识，只是对全书进行一个概括性的总结，从js基础语法入手，逐步介绍如何使用js进行web开发，以及中间包含的各种知识，对这一章的学习可以对整个JS有一个清晰的认识。&lt;/p&gt;
+
+&lt;h3 id=&quot;基础知识篇&quot;&gt;基础知识篇&lt;/h3&gt;
+&lt;p&gt;js基本语法，包括变量定义、赋值、运算，基本数据类型、数组、对象、方法，面向对象，条件运算，循环运算，正则；&lt;/p&gt;
+&lt;h3 id=&quot;进阶篇&quot;&gt;进阶篇&lt;/h3&gt;
+&lt;p&gt;如何将JS应用到Web开发，这里涉及到应用规范，加载规范；如何操作Dom，如何与css交互，如何进行事件处理；调试工具；以及为了解决兼容性并且使用简便而出现的各种库；&lt;/p&gt;
+&lt;h3 id=&quot;高级篇&quot;&gt;高级篇&lt;/h3&gt;
+&lt;p&gt;与服务端交互；数据存储机制；客户端绘图；新应用；&lt;/p&gt;
+&lt;h3 id=&quot;终极篇&quot;&gt;终极篇&lt;/h3&gt;
+&lt;p&gt;经过前面的学习，对前端开发应该会有清晰的认识，也可以非常流畅的干活了。&lt;/p&gt;
+
+&lt;p&gt;然而，前端并不仅仅这些，
+性能优化，模块化一直都是在开发过程中不懈追求的，而平时的学习也应当不断总结不断积累，不断扩展知识面；而今，如React、vue、angular等各个框架日新月异，h5也带来了很多新颖特性，总之，前段就是一条不断学习之路。&lt;/p&gt;
 </content>
  </entry>
  

@@ -184,8 +184,8 @@ ul.posts li {
     transition: all .3s linear;
 }
 ul.posts li:hover {
-    padding-left: 30px;
-    border-left: 15px solid #CE2323;
+    // padding-left: 30px;
+    // border-left: 15px solid #CE2323;
 
     -webkit-transition: all .3s linear;
     -o-transition: all .3s linear;

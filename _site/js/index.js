@@ -3,7 +3,7 @@
  */
 $(document).ready(function() {
 
-    categoryDisplay();
+    // categoryDisplay();
     generateContent();
     backToTop();
 });
