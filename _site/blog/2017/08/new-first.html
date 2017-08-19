@@ -116,9 +116,9 @@
  		<header>
 		<h1>
 		  彻底理解Gradle的任务
-		  <div class="post-date"><a href="https://github.com/LippiOuYang/LippiOuYang.github.io/edit/master/_posts/2015-07-27-gradle-tasks-guide.md" target="_blank">纠错</a>&nbsp;&nbsp;
+		  <div class="post-date"><a href="https://github.com/LippiOuYang/LippiOuYang.github.io/edit/master/_posts/2017-08-19-new-first.md" target="_blank">纠错</a>&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-time"></span>
-			27 Jul 2015
+			19 Aug 2017
 		  </div>
 		</h1>
  		</header>
@@ -227,7 +227,7 @@ $
 
 <figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="c1">//最简单的方法</span>
 <span class="n">task</span> <span class="n">loadTestData</span> <span class="o">{</span>
-   	<span class="n">dependsOn</span> <span class="n">createSchema</span>
+    <span class="n">dependsOn</span> <span class="n">createSchema</span>
 <span class="o">}</span>
 
 <span class="c1">//使用&lt;&lt;声明依赖</span>
@@ -374,8 +374,8 @@ $
 
 <span class="n">task</span> <span class="nf">emailMe</span><span class="o">(</span><span class="nl">dependsOn:</span> <span class="n">compileJava</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="n">tasks</span><span class="o">.</span><span class="na">compileJava</span><span class="o">.</span><span class="na">didWork</span><span class="o">)</span> <span class="o">{</span>
-    	<span class="n">println</span> <span class="s1">'SEND EMAIL ANNOUNCING SUCCESS'</span>
-   	 <span class="o">}</span>
+        <span class="n">println</span> <span class="s1">'SEND EMAIL ANNOUNCING SUCCESS'</span>
+     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>运行结果如下：</p>
@@ -542,15 +542,15 @@ $
 <span class="c1">//表示这是任务的动作</span>
 <span class="nd">@TaskAction</span>
 <span class="kt">def</span> <span class="nf">runQuery</span><span class="o">()</span> <span class="o">{</span>
-	<span class="kt">def</span> <span class="n">cmd</span>
+    <span class="kt">def</span> <span class="n">cmd</span>
 <span class="nf">if</span><span class="o">(</span><span class="n">database</span><span class="o">)</span> <span class="o">{</span>
-	<span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h 	${hostname}-P ${port} ${database} -e "</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h    ${hostname}-P ${port} ${database} -e "</span>
 <span class="o">}</span>
 <span class="k">else</span> <span class="o">{</span>
-	<span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e "</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e "</span>
 <span class="o">}</span>
 <span class="n">project</span><span class="o">.</span><span class="na">exec</span> <span class="o">{</span>
-	<span class="n">commandLine</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="na">split</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span> <span class="o">+</span> <span class="n">sql</span>
+    <span class="n">commandLine</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="na">split</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span> <span class="o">+</span> <span class="n">sql</span>
 <span class="o">}</span>
 <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -596,15 +596,15 @@ $
 <span class="c1">//表示这是任务的动作</span>
 <span class="nd">@TaskAction</span>
 <span class="kt">def</span> <span class="nf">runQuery</span><span class="o">()</span> <span class="o">{</span>
-	<span class="kt">def</span> <span class="n">cmd</span>
+    <span class="kt">def</span> <span class="n">cmd</span>
 <span class="nf">if</span><span class="o">(</span><span class="n">database</span><span class="o">)</span> <span class="o">{</span>
-	<span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h 	${hostname}-P ${port} ${database} -e "</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h    ${hostname}-P ${port} ${database} -e "</span>
 <span class="o">}</span>
 <span class="k">else</span> <span class="o">{</span>
-	<span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e "</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"mysql -u ${username} -p${password} -h ${hostname} -P ${port} -e "</span>
 <span class="o">}</span>
 <span class="n">project</span><span class="o">.</span><span class="na">exec</span> <span class="o">{</span>
-	<span class="n">commandLine</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="na">split</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span> <span class="o">+</span> <span class="n">sql</span>
+    <span class="n">commandLine</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="na">split</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span> <span class="o">+</span> <span class="n">sql</span>
 <span class="o">}</span>
 <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -624,733 +624,11 @@ $
           进行许可。
         </p>
 	<div style="margin-top:10px;margin-bottom:10px">
-	  
-	  <span class="next">
-	    上篇：
-	    <a href="/blog/2015/07/hibernate-cache-guide.html">
-	      Hibernate缓存配置笔记
-	    </a>
-	  </span>
 	   
-	  
-	  <span class="prev">
-	    下篇：
-	    <a href="/blog/2015/08/dagger-dependency-injection.html">
-	      Dagger依赖注入浅析
-	    </a>
-	  </span>
 	  
 	</div>
 	</div>
 	
-        
-	<div post-cate="java">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/08/volley-source-code.html" class="post-list-item">
-                    <h2>Volley源码分析</h2>
-                    <span class="date">Aug 27, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/07/hibernate-cache-guide.html" class="post-list-item">
-                    <h2>Hibernate缓存配置笔记</h2>
-                    <span class="date">Jul 24, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/06/java-lambda-expression.html" class="post-list-item">
-                    <h2>Java Lambda简明教程</h2>
-                    <span class="date">Jun 3, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/04/java-virtual-mechine.html" class="post-list-item">
-                    <h2>Java虚拟机简介</h2>
-                    <span class="date">Apr 18, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/04/java-code-opt-one.html" class="post-list-item">
-                    <h2>优化java代码建议(1)</h2>
-                    <span class="date">Apr 12, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/02/cache.html" class="post-list-item">
-                    <h2>谈谈缓存和基本的缓存算法</h2>
-                    <span class="date">Feb 4, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/12/improve-webServer-performance.html" class="post-list-item">
-                    <h2>谈谈如何提高web服务器并发性能</h2>
-                    <span class="date">Dec 5, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/11/java-inner-class.html" class="post-list-item">
-                    <h2>java中内部类</h2>
-                    <span class="date">Nov 14, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/11/java-concurrent-collections.html" class="post-list-item">
-                    <h2>java同步容器与并发容器</h2>
-                    <span class="date">Nov 8, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/09/returning-null.html" class="post-list-item">
-                    <h2>关于返回 Null 值的问题</h2>
-                    <span class="date">Sep 18, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/why-jdk-string-is-final.html" class="post-list-item">
-                    <h2>为什么 jdk 中把 String 类设计成 final</h2>
-                    <span class="date">Aug 29, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/78-golden-rules-of-the-java-programming.html" class="post-list-item">
-                    <h2>java编程的78条黄金法则</h2>
-                    <span class="date">Aug 16, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/java-multithread.html" class="post-list-item">
-                    <h2>java并发和多线程</h2>
-                    <span class="date">Aug 2, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/android-UI-Thread.html" class="post-list-item">
-                    <h2>Android UI线程和子线程、Service通信</h2>
-                    <span class="date">Jul 19, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/android-networkOnMainThreadException.html" class="post-list-item">
-                    <h2>从android.os.NetworkOnMainThreadException引发的思考</h2>
-                    <span class="date">Jul 18, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/06/26-methods-to-improve-java-performance.html" class="post-list-item">
-                    <h2>Java编程Tips</h2>
-                    <span class="date">Jun 18, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/06/15/in-the-rain.html" class="post-list-item">
-                    <h2>在雨中</h2>
-                    <span class="date">Jun 15, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="c">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2014/12/c-code-opt.html" class="post-list-item">
-                    <h2>C代码优化小贴士</h2>
-                    <span class="date">Dec 27, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/libevent.html" class="post-list-item">
-                    <h2>处理并发之二：libevent的eventbuffer</h2>
-                    <span class="date">Aug 24, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/linux-epoll.html" class="post-list-item">
-                    <h2>处理并发之一：LINUX Epoll机制介绍</h2>
-                    <span class="date">Aug 23, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/c-advaced-programming.html" class="post-list-item">
-                    <h2>C语言高级编程指南</h2>
-                    <span class="date">Jul 5, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="programming">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/03/install-texlive-in-ubuntu.html" class="post-list-item">
-                    <h2>在Ubuntu下安装和编译LaTex</h2>
-                    <span class="date">Mar 15, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/03/github-pages-blog.html" class="post-list-item">
-                    <h2>利用github-pages建立个人博客</h2>
-                    <span class="date">Mar 1, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/qualified-programmer-should-read-what-books.html" class="post-list-item">
-                    <h2>一个合格的程序员应该读过哪些书</h2>
-                    <span class="date">Jul 15, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/c-advaced-programming.html" class="post-list-item">
-                    <h2>C语言高级编程指南</h2>
-                    <span class="date">Jul 5, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="jekyll">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2014/07/use-jekyll-build-blog-on-github.html" class="post-list-item">
-                    <h2>使用jekyll在Github上搭建博客</h2>
-                    <span class="date">Jul 15, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/markdown-syntax.html" class="post-list-item">
-                    <h2>Markdown 语法 (简体中文版)</h2>
-                    <span class="date">Jul 11, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/markdown-basics.html" class="post-list-item">
-                    <h2>markdown 快速入门</h2>
-                    <span class="date">Jul 10, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="other">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/03/vim-plugins.html" class="post-list-item">
-                    <h2>一些强大的Vim插件</h2>
-                    <span class="date">Mar 20, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/03/install-texlive-in-ubuntu.html" class="post-list-item">
-                    <h2>在Ubuntu下安装和编译LaTex</h2>
-                    <span class="date">Mar 15, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/03/github-pages-blog.html" class="post-list-item">
-                    <h2>利用github-pages建立个人博客</h2>
-                    <span class="date">Mar 1, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/qualified-programmer-should-read-what-books.html" class="post-list-item">
-                    <h2>一个合格的程序员应该读过哪些书</h2>
-                    <span class="date">Jul 15, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="reprints">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2014/09/returning-null.html" class="post-list-item">
-                    <h2>关于返回 Null 值的问题</h2>
-                    <span class="date">Sep 18, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/why-jdk-string-is-final.html" class="post-list-item">
-                    <h2>为什么 jdk 中把 String 类设计成 final</h2>
-                    <span class="date">Aug 29, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/08/78-golden-rules-of-the-java-programming.html" class="post-list-item">
-                    <h2>java编程的78条黄金法则</h2>
-                    <span class="date">Aug 16, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/use-jekyll-build-blog-on-github.html" class="post-list-item">
-                    <h2>使用jekyll在Github上搭建博客</h2>
-                    <span class="date">Jul 15, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/07/qualified-programmer-should-read-what-books.html" class="post-list-item">
-                    <h2>一个合格的程序员应该读过哪些书</h2>
-                    <span class="date">Jul 15, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="Android">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/09/android-studio-plugins.html" class="post-list-item">
-                    <h2>提高效率的Android Studio插件</h2>
-                    <span class="date">Sep 9, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/android-opensource.html" class="post-list-item">
-                    <h2>值得推荐的android开源框架</h2>
-                    <span class="date">Oct 1, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="web">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/04/web-transmission-basis.html" class="post-list-item">
-                    <h2>网络传输基础</h2>
-                    <span class="date">Apr 16, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/11/web-server.html" class="post-list-item">
-                    <h2>也谈如何构建高性能服务端程序</h2>
-                    <span class="date">Nov 19, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/xmpp-analise.html" class="post-list-item">
-                    <h2>XMPP协议分析-具体分析</h2>
-                    <span class="date">Oct 31, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/androidDP-project.html" class="post-list-item">
-                    <h2>Androidpn 消息推送总结</h2>
-                    <span class="date">Oct 31, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/how-to-use-smack.html" class="post-list-item">
-                    <h2>Smack开发手册</h2>
-                    <span class="date">Oct 30, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/androidDP-introduction.html" class="post-list-item">
-                    <h2>AndroidPN消息推送</h2>
-                    <span class="date">Oct 30, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/xmpp.html" class="post-list-item">
-                    <h2>XMPP协议分析-原理</h2>
-                    <span class="date">Oct 28, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/jsp-jfreechart.html" class="post-list-item">
-                    <h2>使用Jfreechart生成曲线显示到JSP中</h2>
-                    <span class="date">Oct 22, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/10/how-http-works.html" class="post-list-item">
-                    <h2>当我们打开网页时发生了什么</h2>
-                    <span class="date">Oct 11, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="book">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2014/11/how-to-evaluate-the-hackers-and-painters.html" class="post-list-item">
-                    <h2>如何评价『黑客与画家』</h2>
-                    <span class="date">Nov 1, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="algorithm">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2014/12/skip-list.html" class="post-list-item">
-                    <h2>skip list跳跃表实现</h2>
-                    <span class="date">Dec 18, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/11/graph.html" class="post-list-item">
-                    <h2>计算机算法--图算法介绍</h2>
-                    <span class="date">Nov 29, 2014</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2014/11/leveldb.html" class="post-list-item">
-                    <h2>leveldb原理剖析</h2>
-                    <span class="date">Nov 18, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="c/c++">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2014/12/c-open-project.html" class="post-list-item">
-                    <h2>值得推荐的C/C++框架和库</h2>
-                    <span class="date">Dec 13, 2014</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="android">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/08/volley-source-code.html" class="post-list-item">
-                    <h2>Volley源码分析</h2>
-                    <span class="date">Aug 27, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/05/android-links.html" class="post-list-item">
-                    <h2>安卓开发者必备的42个链接</h2>
-                    <span class="date">May 19, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/05/define-custom-view.html" class="post-list-item">
-                    <h2>Android自定义视图教程</h2>
-                    <span class="date">May 17, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/03/android-studio-prefrence.html" class="post-list-item">
-                    <h2>Android Studio多渠道打包和代码混淆教程</h2>
-                    <span class="date">Mar 18, 2015</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="Gradle">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/05/gradle-dependency-management.html" class="post-list-item">
-                    <h2>Gradle系列教程之依赖管理</h2>
-                    <span class="date">May 5, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/04/gradle-task-management.html" class="post-list-item">
-                    <h2>Gradle系列教程之任务管理</h2>
-                    <span class="date">Apr 30, 2015</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="lambda">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/06/java-lambda-expression.html" class="post-list-item">
-                    <h2>Java Lambda简明教程</h2>
-                    <span class="date">Jun 3, 2015</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
         
 	<div post-cate="gradle">
           <ul class="posts">
@@ -1362,129 +640,9 @@ $
               
                 
 		<li>
-                  <a href="/blog/2015/08/dagger-dependency-injection.html" class="post-list-item">
-                    <h2>Dagger依赖注入浅析</h2>
-                    <span class="date">Aug 13, 2015</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/07/gradle-tasks-guide.html" class="post-list-item">
+                  <a href="/blog/2017/08/new-first.html" class="post-list-item">
                     <h2>彻底理解Gradle的任务</h2>
-                    <span class="date">Jul 27, 2015</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="Latex">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2015/08/latex-fonts-settings.html" class="post-list-item">
-                    <h2>Latex中英文环境设置</h2>
-                    <span class="date">Aug 22, 2015</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="Unix/Linux">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2016/02/baidu-spider-forbidden.html" class="post-list-item">
-                    <h2>解决百度爬虫无法抓取github pages</h2>
-                    <span class="date">Feb 18, 2016</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2016/01/apache-configuration-in-ubuntu.html" class="post-list-item">
-                    <h2>Ubuntu下Apache服务器的配置</h2>
-                    <span class="date">Jan 20, 2016</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2016/01/tmux-guide.html" class="post-list-item">
-                    <h2>终端复用软件之tmux简介</h2>
-                    <span class="date">Jan 19, 2016</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
-                  <a href="/blog/2015/08/linux-zsh.html" class="post-list-item">
-                    <h2>Zsh-Linux下最好的Shell简介</h2>
-                    <span class="date">Aug 23, 2015</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="Git">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2016/02/git-guide.html" class="post-list-item">
-                    <h2>Git操作手册|命令速查表</h2>
-                    <span class="date">Feb 20, 2016</span>
-                  </a>
-		</li>
-                
-              
-            
-          </ul>
-	</div>
-        
-	<div post-cate="hi">
-          <ul class="posts">
-            
-              
-                
-              
-            
-              
-                
-		<li>
-                  <a href="/blog/2016/02/hi.html" class="post-list-item">
-                    <h2>hi</h2>
-                    <span class="date">Feb 22, 2016</span>
+                    <span class="date">Aug 19, 2017</span>
                   </a>
 		</li>
                 
@@ -1506,14 +664,14 @@ $
 UY END -->
 
 <!-- 多说评论框 start -->
-  <div class="post-comment">
+  <!-- <div class="post-comment">
             <span>Comments</span>
-	<div class="ds-thread" data-thread-key="/blog/2015/07/gradle-tasks-guide" data-title="彻底理解Gradle的任务" data-url="LippiOuYang.github.io/blog/2015/07/gradle-tasks-guide.html">
+	<div class="ds-thread" data-thread-key="/blog/2017/08/new-first" data-title="彻底理解Gradle的任务" data-url="LippiOuYang.github.io/blog/2017/08/new-first.html">
 	</div>
- </div>
+ </div> -->
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 var duoshuoQuery = {short_name:"lippiouyang"};
 	(function() {
 		var ds = document.createElement('script');
@@ -1523,7 +681,7 @@ var duoshuoQuery = {short_name:"lippiouyang"};
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
-	</script>
+	</script> -->
 <!-- 多说公共JS代码 end -->
  
 </div> 
@@ -1574,83 +732,11 @@ var duoshuoQuery = {short_name:"lippiouyang"};
       </div>
       
       <a href="/index.html" class="categories-list-item" cate="All">
-        All<span class="my-badge"> 61</span>
+        All<span class="my-badge"> 1</span>
       </a>
       
-        <a href="javascript:;" class="categories-list-item" cate="java">
-          java <span class="my-badge">17</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="c">
-          c <span class="my-badge">4</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="programming">
-          programming <span class="my-badge">4</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="jekyll">
-          jekyll <span class="my-badge">3</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="other">
-          other <span class="my-badge">4</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="reprints">
-          reprints <span class="my-badge">5</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="Android">
-          Android <span class="my-badge">2</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="web">
-          web <span class="my-badge">9</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="book">
-          book <span class="my-badge">1</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="algorithm">
-          algorithm <span class="my-badge">3</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="c/c++">
-          c/c++ <span class="my-badge">1</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="android">
-          android <span class="my-badge">4</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="Gradle">
-          Gradle <span class="my-badge">2</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="lambda">
-          lambda <span class="my-badge">1</span>
-        </a>
-      
         <a href="javascript:;" class="categories-list-item" cate="gradle">
-          gradle <span class="my-badge">2</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="Latex">
-          Latex <span class="my-badge">1</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="Unix/Linux">
-          Unix/Linux <span class="my-badge">4</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="Git">
-          Git <span class="my-badge">1</span>
-        </a>
-      
-        <a href="javascript:;" class="categories-list-item" cate="hi">
-          hi <span class="my-badge">1</span>
+          gradle <span class="my-badge">1</span>
         </a>
       
     </div>
@@ -1660,7 +746,7 @@ var duoshuoQuery = {short_name:"lippiouyang"};
  
          
               <div class="shadow-corner-curl hidden-xs">
-      <div class="categories-list-header">
+      <!-- <div class="categories-list-header">
         热门文章
       </div>
 
@@ -1674,13 +760,13 @@ var duoshuoQuery = {short_name:"lippiouyang"};
 <li><a href="/blog/2015/05/android-links.html" class="categories-list-item">安卓开发者必备的42个链接</a></li>
 <li><a href="/blog/2015/05/gradle-dependency-management.html" class="categories-list-item">Gradle系列教程之依赖管理</a></li>
 <li><a href="/blog/2014/10/android-opensource.html" class="categories-list-item">值得推荐的android开源框架</a></li>	 
-<li><a href="/blog/2015/07/hibernate-cache-guide.html" class="categories-list-item">Hibernate缓存配置笔记</a></li>	
+<li><a href="/blog/2015/07/hibernate-cache-guide.html" class="categories-list-item">Hibernate缓存配置笔记</a></li>	 -->
 	 
      </ul>
 </div>
  
        
-                   <div class="shadow-corner-curl hidden-xs">
+            <!--        <div class="shadow-corner-curl hidden-xs">
       <div class="categories-list-header">
         相关链接
       </div>    
@@ -1749,7 +835,7 @@ var duoshuoQuery = {short_name:"lippiouyang"};
             </ul>
 
 </div>
- 
+ --> 
 
           <!-- Side Widget Well -->
            
@@ -1762,8 +848,8 @@ var duoshuoQuery = {short_name:"lippiouyang"};
       <hr>
       <!-- Footer -->
       <footer>
-           <p><small>Designed by <a href="https://github.com/EZLippi">Lippi</a> | Free hosted at <a href="https://github.com/EZLippi/EZLippi.github.io">Github</a> | Copyright 2014 - 2017  
-										</p>
+           <!-- <p><small>Designed by <a href="https://github.com/EZLippi">Lippi</a> | Free hosted at <a href="https://github.com/EZLippi/EZLippi.github.io">Github</a> | Copyright 2014 - 2017   -->
+										<!-- </p> -->
 
 	<!--
 <div class="container">

@@ -7,7 +7,7 @@ url:
 cdn_url: 7u2t01.com1.z0.glb.clouddn.com
 lsi: false
 safe: true
-timezone: Asia/Shanghai
+timezone: Asia/Beijing
 auto: false 
 
 paginate: 8
@@ -25,11 +25,11 @@ JB :
 
 # presonal config
 domain: http://coolshell.info
-title: Lippi-浮生志
-description: Draw my life with code
-author: Lippi.OuYang
-email: ouyanglip@gmail.com
-github: LippiOuYang
+title: 学而时习之
+description: 随便写点什么
+author: dxy
+email: dingxyan@163.com
+github: https://dingxyan.github.io
 
 config:
   js_dir:
