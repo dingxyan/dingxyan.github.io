@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Lippi-浮生志</title>
+ <title>久矻矻</title>
  <link href="http://http://coolshell.info/atom.xml" rel="self"/>
  <link href="http://http://coolshell.info"/>
- <updated>2017-08-19T16:07:41+08:00</updated>
+ <updated>2017-08-19T08:59:09+00:00</updated>
  <author>
-   <name>Lippi.OuYang</name>
-   <email>ouyanglip@gmail.com</email>
+   <name>dxy</name>
+   <email>dingxyan@163.com</email>
  </author>
 
  
  <entry>
    <title>彻底理解Gradle的任务</title>
    <link href="http://http://coolshell.info/blog/2017/08/new-first.html"/>
-   <updated>2017-08-19T00:00:00+08:00</updated>
+   <updated>2017-08-19T00:00:00+00:00</updated>
    <id>/blog/2017/08/new-first</id>
    <content type="html">&lt;p&gt;在Gradle的build文件中，任务是构建活动最基本的单元，它是许多构建指令的集合，下面我将仔细介绍Gradle任务的细节。&lt;/p&gt;
 
