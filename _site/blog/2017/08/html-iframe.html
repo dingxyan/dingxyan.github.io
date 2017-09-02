@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Javascript权威指南学习笔记1：第一章 - 久矻矻 - dxy(dingxyan@163.com)">
+    <meta name="description" content="我所知道的iframe - 久矻矻 - dxy(dingxyan@163.com)">
     <title>
-      Javascript权威指南学习笔记1：第一章 - 久矻矻
+      我所知道的iframe - 久矻矻
     </title>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -110,8 +110,8 @@
         	<div class="all-posts" post-cate="All">
  		<header>
 		<h1>
-		  Javascript权威指南学习笔记1：第一章
-		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-08-19-js基础-1.md" target="_blank">纠错</a>&nbsp;&nbsp;
+		  我所知道的iframe
+		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-08-19-html-iframe.md" target="_blank">纠错</a>&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-time"></span>
 			19 Aug 2017
 		  </div>
@@ -120,21 +120,61 @@
 		<!-- Author -->
 		<hr>
 		 <article>
-		<p>工作一年，对前端有了一些自己的理解，前端知识太多，于是决定从学习基础知识开始，重新将基础知识进行整理，希望弥补漏洞，并温故知新。</p>
+		<p>iframe在前端开发过程中应用广泛，其主要是将一个页面作为整体引用到一个页面中。一般有以下应用场景</p>
 
-<p>第一章没有太多核心知识，只是对全书进行一个概括性的总结，从js基础语法入手，逐步介绍如何使用js进行web开发，以及中间包含的各种知识，对这一章的学习可以对整个JS有一个清晰的认识。</p>
+<h3 id="1-公司应用系统开发">1. 公司应用系统开发</h3>
+<p>一般会有一个左侧列表，作为一个框架，每一个目录引用独立的html页面，这样便于每一个页面独立开发。</p>
 
-<h3 id="基础知识篇">基础知识篇</h3>
-<p>js基本语法，包括变量定义、赋值、运算，基本数据类型、数组、对象、方法，面向对象，条件运算，循环运算，正则；</p>
-<h3 id="进阶篇">进阶篇</h3>
-<p>如何将JS应用到Web开发，这里涉及到应用规范，加载规范；如何操作Dom，如何与css交互，如何进行事件处理；调试工具；以及为了解决兼容性并且使用简便而出现的各种库；</p>
-<h3 id="高级篇">高级篇</h3>
-<p>与服务端交互；数据存储机制；客户端绘图；新应用；</p>
-<h3 id="终极篇">终极篇</h3>
-<p>经过前面的学习，对前端开发应该会有清晰的认识，也可以非常流畅的干活了。</p>
+<h3 id="2-引入第三方">2. 引入第三方</h3>
+<p>当页面需要从第三方引入模块的时候，往往会使用iframe，保证原始页面与第三方之间不冲突。</p>
 
-<p>然而，前端并不仅仅这些，
-性能优化，模块化一直都是在开发过程中不懈追求的，而平时的学习也应当不断总结不断积累，不断扩展知识面；而今，如React、vue、angular等各个框架日新月异，h5也带来了很多新颖特性，总之，前段就是一条不断学习之路。</p>
+<p><strong>接下来，我们聊一聊，iframe中，如何进行事件的绑定</strong></p>
+<h2 id="iframe的事件绑定">iframe的事件绑定</h2>
+<h3 id="1-事件绑定">1. 事件绑定</h3>
+<p><code class="highlighter-rouge">$('iframe').load(function(){
+	$('iframe').contents().click(function(){console.log("test1")});//会为所有iframe绑定事件
+	//document.getElementsByTagName("iframe")[0].contentWindow.document.onclick=function(){console.log("test”)}//按照序号为每一个iframe绑定事件
+	//document.getElementsByTagName("iframe")[0].contentWindow.onclick=function(){console.log("test”)}//同上
+});
+</code>
+contentWindow用于获取iframe内容，原生写法，这个属性是只读的，iframe本身不能绑定事件，要获取其内容绑定事件，
+$(‘iframe’).find(‘body’)//undefined
+$(‘iframe’).contents().find(‘body’)//ok
+另外，需要等待iframe load成功之后再绑定事件，否则事件绑定失败</p>
+<h3 id="2-事件委托">2. 事件委托</h3>
+<p>无法实现，因为事件冒泡到自己的document就会停止，不会继续向上，所以在外层无法检测内层的事件冒泡。</p>
+<h3 id="3-each">3. each</h3>
+<p><code class="highlighter-rouge">$(document).ready(function () {
+    $("iframe").each(function () {
+        var iframe = $(this);
+        iframe.on("load", function () { //保证完全加载完成
+            console.log(iframe.contents())
+            iframe.contents().click(function (event) {
+                iframe.trigger("click");
+            });
+        });
+        iframe.click(function () {
+            console.log(3);
+        });
+    });
+});
+</code></p>
+<h3 id="4-伪类">4. 伪类</h3>
+<p><code class="highlighter-rouge">.g-content:after{
+      content:"";
+      position:absolute;
+      z-index:1;
+      width:100%;
+      height:100%;
+      left:0;
+      top:0;
+}
+$("#j_content").on("click",function(){
+    console.log("test")
+})
+</code>
+给iframe的父容器添加伪类after，并给其绑定事件，缺点是，ifrmame内部的所有事件都会被遮挡，不会响应。</p>
+
 
 		  </article>
 		<hr>
@@ -145,19 +185,12 @@
           <!-- 进行许可。 -->
         </p>
 	<div style="margin-top:10px;margin-bottom:10px">
-	  
-	  <span class="next">
-	    上篇：
-	    <a href="/blog/2017/08/html-iframe.html">
-	      我所知道的iframe
-	    </a>
-	  </span>
 	   
 	  
 	  <span class="prev">
 	    下篇：
-	    <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-2.html">
-	      Javascript权威指南学习笔记1：第二章（词法结构）
+	    <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html">
+	      Javascript权威指南学习笔记1：第一章
 	    </a>
 	  </span>
 	  
@@ -231,7 +264,7 @@ UY END -->
 <!-- 多说评论框 start -->
   <!-- <div class="post-comment">
             <span>Comments</span>
-	<div class="ds-thread" data-thread-key="/blog/2017/08/js基础-1" data-title="Javascript权威指南学习笔记1：第一章" data-url="LippiOuYang.github.io/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html">
+	<div class="ds-thread" data-thread-key="/blog/2017/08/html-iframe" data-title="我所知道的iframe" data-url="LippiOuYang.github.io/blog/2017/08/html-iframe.html">
 	</div>
  </div> -->
 <!-- 多说评论框 end -->
