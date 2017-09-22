@@ -4,7 +4,7 @@
  <title>久矻矻</title>
  <link href="http://http://coolshell.info/atom.xml" rel="self"/>
  <link href="http://http://coolshell.info"/>
- <updated>2017-09-22T07:26:18+00:00</updated>
+ <updated>2017-09-22T08:00:46+00:00</updated>
  <author>
    <name>dxy</name>
    <email>dingxyan@163.com</email>
@@ -57,66 +57,105 @@ Element.getClientRects()&lt;/p&gt;
  </entry>
  
  <entry>
-   <title>h5随记</title>
-   <link href="http://http://coolshell.info/blog/2017/09/h5.html"/>
+   <title>H5 Search Keybord</title>
+   <link href="http://http://coolshell.info/blog/2017/09/h5-search-keybord.html"/>
+   <updated>2017-09-22T00:00:00+00:00</updated>
+   <id>/blog/2017/09/h5-search-keybord</id>
+   <content type="html">&lt;p&gt;手机键盘“开始”触发搜索&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>百度地图及高德地图一些使用记录</title>
+   <link href="http://http://coolshell.info/blog/2017/09/h5-map.html"/>
+   <updated>2017-09-22T00:00:00+00:00</updated>
+   <id>/blog/2017/09/h5-map</id>
+   <content type="html">&lt;p&gt;百度地图及高德地图，调用，使用，反GEo&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>img及background-image差异</title>
+   <link href="http://http://coolshell.info/blog/2017/09/h5-img.html"/>
+   <updated>2017-09-22T00:00:00+00:00</updated>
+   <id>/blog/2017/09/h5-img</id>
+   <content type="html">&lt;p&gt;####图片及背景图的差异&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;高度
+图片可以把容器高度撑起来，而背景图不可以，对于背景图，如果不设置高度，那么宽高都是0；&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>H5 Center</title>
+   <link href="http://http://coolshell.info/blog/2017/09/h5-center.html"/>
+   <updated>2017-09-22T00:00:00+00:00</updated>
+   <id>/blog/2017/09/h5-center</id>
+   <content type="html">&lt;p&gt;上下左右居中&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>h5获取定位</title>
+   <link href="http://http://coolshell.info/blog/2017/09/h5-location.html"/>
    <updated>2017-09-14T00:00:00+00:00</updated>
-   <id>/blog/2017/09/h5</id>
-   <content type="html">&lt;ol&gt;
-  &lt;li&gt;h5获取定位
-方法1: 原声js获取定位
-`
-function getLocation(){ 
- if (navigator.geolocation){
-     navigator.geolocation.getCurrentPosition(showPosition,showError);
- }else{ 
-     $(“#content”).html(“浏览器不支持地理定位。”); 
- } 
+   <id>/blog/2017/09/h5-location</id>
+   <content type="html">&lt;h4 id=&quot;方法1-原声js获取定位&quot;&gt;方法1: 原声js获取定位&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function getLocation(){ 
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(showPosition,showError);
+	}else{ 
+		$(&quot;#content&quot;).html(&quot;浏览器不支持地理定位。&quot;); 
+	} 
 }
 function showPosition(position){
- var lat = position.coords.latitude; //纬度 
- var lag = position.coords.longitude; //经度 
- $(“#content”).html(‘纬度:’+lat+’,经度:’+lag); 
+	var lat = position.coords.latitude; //纬度 
+	var lag = position.coords.longitude; //经度 
+	$(&quot;#content&quot;).html('纬度:'+lat+',经度:'+lag); 
 }
 function showError(error){
- switch(error.code) { 
-     case error.PERMISSION_DENIED: 
-         $(“#content”).html(“定位失败,用户不允许地理定位”); 
-         break; 
-     case error.POSITION_UNAVAILABLE: 
-         $(“#content”).html(“无法获取当前位置”); 
-         break; 
-     case error.TIMEOUT: 
-         $(“#content”).html(“定位失败,请求获取用户位置超时”); 
-         break; 
-     case error.UNKNOWN_ERROR: 
-         $(“#content”).html(“定位失败,定位系统失效”); 
-         break; 
- }
+	switch(error.code) { 
+		case error.PERMISSION_DENIED: 
+			$(&quot;#content&quot;).html(&quot;定位失败,用户不允许地理定位&quot;); 
+			break; 
+		case error.POSITION_UNAVAILABLE: 
+			$(&quot;#content&quot;).html(&quot;无法获取当前位置&quot;); 
+			break; 
+		case error.TIMEOUT: 
+			$(&quot;#content&quot;).html(&quot;定位失败,请求获取用户位置超时&quot;); 
+			break; 
+		case error.UNKNOWN_ERROR: 
+			$(&quot;#content&quot;).html(&quot;定位失败,定位系统失效&quot;); 
+			break; 
+	}
 }
 getLocation();
-`
-局限：ios 10.0以上系统需要https协议才支持。
-方法2: 百度地图获取，经测试，安卓苹果都可以
-`
-var map = new BMap.Map(“content”);
-var point = new BMap.Point(116.331398,39.897445);
-map.centerAndZoom(point,12);&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;局限：ios 10.0以上系统需要https协议才支持。&lt;/p&gt;
+&lt;h4 id=&quot;方法2-百度地图获取经测试安卓苹果都可以&quot;&gt;方法2: 百度地图获取，经测试，安卓苹果都可以&lt;/h4&gt;
 
-&lt;p&gt;var geolocation = new BMap.Geolocation();
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var map = new BMap.Map(&quot;content&quot;);
+var point = new BMap.Point(116.331398,39.897445);
+map.centerAndZoom(point,12);
+
+var geolocation = new BMap.Geolocation();
 geolocation.getCurrentPosition(function(r){
 	if(this.getStatus() == BMAP_STATUS_SUCCESS){
 		var mk = new BMap.Marker(r.point);
 		map.addOverlay(mk);
 		map.panTo(r.point);
-		$(“#postion”).html(‘您的位置：’+r.point.lng+’,’+r.point.lat);
+		$(&quot;#postion&quot;).html('您的位置：'+r.point.lng+','+r.point.lat);
 	}
 	else {
-		$(“#postion”).html(‘failed’+this.getStatus());
+		$(&quot;#postion&quot;).html('failed'+this.getStatus());
 	}
 },{enableHighAccuracy: true})
-`
-手机定位都是根据GPS，并且需要用户允许定位，而目前pc端一般无GPS，那么他是如何定位的呢？
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;手机定位都是根据GPS，并且需要用户允许定位，而目前pc端一般无GPS，那么他是如何定位的呢？
 主要有以下几种说法：&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;根据ip获取定位，也就是说与运营商合作，精准到每个ip区段，获取每个区段定位（我觉得不太可能这么简单，没有GPS怎么可能准确定位）；&lt;/li&gt;
@@ -137,12 +176,14 @@ geolocation.getCurrentPosition(function(r){
    <content type="html">&lt;h1&gt;#&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;js浮点数
-‘
-var a=0.3-0.2;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var a=0.3-0.2;
 var b=0.4-0.3;
-a==b//false’&lt;/li&gt;
+a==b//false
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
   &lt;li&gt;常用Math
-Math.pow(2,23);//2的23次方
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Math.pow(2,23);//2的23次方
 Math.round(0.7);//四舍五入
 Math.ceil(0.7);//向上取整
 Math.floor(0.7);//向下取整
@@ -156,7 +197,10 @@ Math.sqrt();//
 Math.sin(0);//
 Math.log(10);//
 Math.log(100)/Math.LN10;//
-Math.exp();&lt;/li&gt;
+Math.exp();
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 </content>
  </entry>
@@ -172,53 +216,54 @@ Math.exp();&lt;/li&gt;
 &lt;h3 id=&quot;js解析&quot;&gt;js解析&lt;/h3&gt;
 &lt;p&gt;JS解析的时候会过滤掉空格，制表符，换页符等；
 对于回车符号，如果结尾有分号，会被忽略，否则，会做以下处理：
-&lt;strong&gt;如果当前行与下一行不能合在一起被解析，那么当前行会被加上分号&lt;/strong&gt;，例如
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-var a  
+&lt;strong&gt;如果当前行与下一行不能合在一起被解析，那么当前行会被加上分号&lt;/strong&gt;，例如&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var a  
 a  
 =  
 3  
 console.log(a)
-&lt;/code&gt;
-会被解析为
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-var a;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;会被解析为&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var a;  
 a=3;  
 console.log(a);
-&lt;/code&gt;
-再如：
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-var p = a+b+f  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;再如：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var p = a+b+f  
 (c+d).toString()
-&lt;/code&gt;
-会被解析为
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-var p = a+b+f(c+d).toString(); 
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;会被解析为&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var p = a+b+f(c+d).toString(); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;其中有2种情况异常：&lt;/strong&gt;
-情况1：
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-return  
+情况1：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;return  
 true 
-&lt;/code&gt;
-会被解析为
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-return;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;会被解析为&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;return;  
 true;
-&lt;/code&gt;
-因此 return 后面不要跟回车；
-情况2：
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-x  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;因此 return 后面不要跟回车；
+情况2：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x  
 ++  
 y
-&lt;/code&gt;
-会被解析为
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-x;  
-++y; &lt;/code&gt;
-分号可省略，省略有风险。在写组件的时候，往往习惯在开头加一个分号，这样可以防止之前没有分号，导致的解析错误。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;会被解析为&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x;  
+++y;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;分号可省略，省略有风险。在写组件的时候，往往习惯在开头加一个分号，这样可以防止之前没有分号，导致的解析错误。&lt;/p&gt;
 &lt;h3 id=&quot;保留字&quot;&gt;保留字&lt;/h3&gt;
 &lt;p&gt;js标识符规定以字母、下划线、$开头；
 js有很多保留字，不能用于变量命名，例如 class, const, enum, export, extends, import, super, 以及在严格模式下的保留字interface, implements, let, private, public, yield, package, protected, static, 严格模式下并非保留字但不能用于保留字的 arguments, eval;
@@ -269,20 +314,19 @@ js有很多保留字，不能用于变量命名，例如 class, const, enum, exp
 &lt;p&gt;&lt;strong&gt;接下来，我们聊一聊，iframe中，如何进行事件的绑定&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;iframe的事件绑定&quot;&gt;iframe的事件绑定&lt;/h2&gt;
 &lt;h3 id=&quot;1-事件绑定&quot;&gt;1. 事件绑定&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$('iframe').load(function(){
-	$('iframe').contents().click(function(){console.log(&quot;test1&quot;)});//会为所有iframe绑定事件
+&lt;pre&gt;&lt;code class=&quot;language-$('iframe').load(function(){&quot;&gt;	$('iframe').contents().click(function(){console.log(&quot;test1&quot;)});//会为所有iframe绑定事件
 	//document.getElementsByTagName(&quot;iframe&quot;)[0].contentWindow.document.onclick=function(){console.log(&quot;test”)}//按照序号为每一个iframe绑定事件
 	//document.getElementsByTagName(&quot;iframe&quot;)[0].contentWindow.onclick=function(){console.log(&quot;test”)}//同上
 });
-&lt;/code&gt;
-contentWindow用于获取iframe内容，原生写法，这个属性是只读的，iframe本身不能绑定事件，要获取其内容绑定事件，
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;contentWindow用于获取iframe内容，原生写法，这个属性是只读的，iframe本身不能绑定事件，要获取其内容绑定事件，
 $(‘iframe’).find(‘body’)//undefined
 $(‘iframe’).contents().find(‘body’)//ok
 另外，需要等待iframe load成功之后再绑定事件，否则事件绑定失败&lt;/p&gt;
 &lt;h3 id=&quot;2-事件委托&quot;&gt;2. 事件委托&lt;/h3&gt;
 &lt;p&gt;无法实现，因为事件冒泡到自己的document就会停止，不会继续向上，所以在外层无法检测内层的事件冒泡。&lt;/p&gt;
 &lt;h3 id=&quot;3-each&quot;&gt;3. each&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$(document).ready(function () {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$(document).ready(function () {
     $(&quot;iframe&quot;).each(function () {
         var iframe = $(this);
         iframe.on(&quot;load&quot;, function () { //保证完全加载完成
@@ -296,9 +340,10 @@ $(‘iframe’).contents().find(‘body’)//ok
         });
     });
 });
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;h3 id=&quot;4-伪类&quot;&gt;4. 伪类&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.g-content:after{
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.g-content:after{
       content:&quot;&quot;;
       position:absolute;
       z-index:1;
@@ -310,8 +355,9 @@ $(‘iframe’).contents().find(‘body’)//ok
 $(&quot;#j_content&quot;).on(&quot;click&quot;,function(){
     console.log(&quot;test&quot;)
 })
-&lt;/code&gt;
-给iframe的父容器添加伪类after，并给其绑定事件，缺点是，ifrmame内部的所有事件都会被遮挡，不会响应。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;给iframe的父容器添加伪类after，并给其绑定事件，缺点是，ifrmame内部的所有事件都会被遮挡，不会响应。&lt;/p&gt;
 
 </content>
  </entry>

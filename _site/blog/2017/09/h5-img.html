@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="h5随记 - 久矻矻 - dxy(dingxyan@163.com)">
+    <meta name="description" content="img及background-image差异 - 久矻矻 - dxy(dingxyan@163.com)">
     <title>
-      h5随记 - 久矻矻
+      img及background-image差异 - 久矻矻
     </title>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -110,81 +110,21 @@
         	<div class="all-posts" post-cate="All">
  		<header>
 		<h1>
-		  h5随记
-		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-09-14-h5.md" target="_blank">纠错</a>&nbsp;&nbsp;
+		  img及background-image差异
+		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-09-22-h5-img.md" target="_blank">纠错</a>&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-time"></span>
-			14 Sep 2017
+			22 Sep 2017
 		  </div>
 		</h1>
  		</header>
 		<!-- Author -->
 		<hr>
 		 <article>
-		<ol>
-  <li>h5获取定位
-方法1: 原声js获取定位
-`
-function getLocation(){ 
- if (navigator.geolocation){
-     navigator.geolocation.getCurrentPosition(showPosition,showError);
- }else{ 
-     $(“#content”).html(“浏览器不支持地理定位。”); 
- } 
-}
-function showPosition(position){
- var lat = position.coords.latitude; //纬度 
- var lag = position.coords.longitude; //经度 
- $(“#content”).html(‘纬度:’+lat+’,经度:’+lag); 
-}
-function showError(error){
- switch(error.code) { 
-     case error.PERMISSION_DENIED: 
-         $(“#content”).html(“定位失败,用户不允许地理定位”); 
-         break; 
-     case error.POSITION_UNAVAILABLE: 
-         $(“#content”).html(“无法获取当前位置”); 
-         break; 
-     case error.TIMEOUT: 
-         $(“#content”).html(“定位失败,请求获取用户位置超时”); 
-         break; 
-     case error.UNKNOWN_ERROR: 
-         $(“#content”).html(“定位失败,定位系统失效”); 
-         break; 
- }
-}
-getLocation();
-`
-局限：ios 10.0以上系统需要https协议才支持。
-方法2: 百度地图获取，经测试，安卓苹果都可以
-`
-var map = new BMap.Map(“content”);
-var point = new BMap.Point(116.331398,39.897445);
-map.centerAndZoom(point,12);</li>
-</ol>
-
-<p>var geolocation = new BMap.Geolocation();
-geolocation.getCurrentPosition(function(r){
-	if(this.getStatus() == BMAP_STATUS_SUCCESS){
-		var mk = new BMap.Marker(r.point);
-		map.addOverlay(mk);
-		map.panTo(r.point);
-		$(“#postion”).html(‘您的位置：’+r.point.lng+’,’+r.point.lat);
-	}
-	else {
-		$(“#postion”).html(‘failed’+this.getStatus());
-	}
-},{enableHighAccuracy: true})
-`
-手机定位都是根据GPS，并且需要用户允许定位，而目前pc端一般无GPS，那么他是如何定位的呢？
-主要有以下几种说法：</p>
-<ol>
-  <li>根据ip获取定位，也就是说与运营商合作，精准到每个ip区段，获取每个区段定位（我觉得不太可能这么简单，没有GPS怎么可能准确定位）；</li>
-  <li>你手机安装了百度相关app，当使用这些软件并允许定位的时候，手机默默的提交了定位信息，而pc通过路由器偷偷的从手机获取了你的定位信息（我觉得有可能，如果是真的，真的很流氓）；</li>
-  <li>大数据，你的手机使用百度相关app上网，并且允许定位，每次都会提交ip信息及定位信息，那么该ip段及对应的位置信息会被记录，并且不断更新，那么便可以通过ip为你准确定位（更愿意相信这种方式）。
-具体原理未考证，以上都是猜测，希望大神解惑。
-不管是什么，于互联网时代，我们还有多少隐私？</li>
-</ol>
-
+		<p>####图片及背景图的差异</p>
+<ul>
+  <li>高度
+图片可以把容器高度撑起来，而背景图不可以，对于背景图，如果不设置高度，那么宽高都是0；</li>
+</ul>
 
 		  </article>
 		<hr>
@@ -198,16 +138,16 @@ geolocation.getCurrentPosition(function(r){
 	  
 	  <span class="next">
 	    上篇：
-	    <a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html">
-	      Javascript权威指南学习笔记1：第三章
+	    <a href="/blog/2017/09/h5-center.html">
+	      H5 Center
 	    </a>
 	  </span>
 	   
 	  
 	  <span class="prev">
 	    下篇：
-	    <a href="/blog/2017/09/js-width&height.html">
-	      js 各种宽高
+	    <a href="/blog/2017/09/h5-map.html">
+	      百度地图及高德地图一些使用记录
 	    </a>
 	  </span>
 	  
@@ -225,9 +165,9 @@ geolocation.getCurrentPosition(function(r){
               
                 
 		<li>
-                  <a href="/blog/2017/09/h5.html" class="post-list-item">
-                    <h2>h5随记</h2>
-                    <span class="date">Sep 14, 2017</span>
+                  <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
+                    <h2>js 各种宽高</h2>
+                    <span class="date">Sep 22, 2017</span>
                   </a>
 		</li>
                 
@@ -252,15 +192,6 @@ geolocation.getCurrentPosition(function(r){
                 
               
             
-              
-                
-		<li>
-                  <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
-                    <h2>js 各种宽高</h2>
-                    <span class="date">Sep 22, 2017</span>
-                  </a>
-		</li>
-                
               
                 
 		<li>
@@ -293,6 +224,45 @@ geolocation.getCurrentPosition(function(r){
           </ul>
 	</div>
         
+	<div post-cate="h5随记">
+          <ul class="posts">
+            
+              
+                
+              
+            
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-map.html" class="post-list-item">
+                    <h2>百度地图及高德地图一些使用记录</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-img.html" class="post-list-item">
+                    <h2>img及background-image差异</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-location.html" class="post-list-item">
+                    <h2>h5获取定位</h2>
+                    <span class="date">Sep 14, 2017</span>
+                  </a>
+		</li>
+                
+              
+            
+          </ul>
+	</div>
+        
 	 </div>
 
 </div>
@@ -308,7 +278,7 @@ UY END -->
 <!-- 多说评论框 start -->
   <!-- <div class="post-comment">
             <span>Comments</span>
-	<div class="ds-thread" data-thread-key="/blog/2017/09/h5" data-title="h5随记" data-url="LippiOuYang.github.io/blog/2017/09/h5.html">
+	<div class="ds-thread" data-thread-key="/blog/2017/09/h5-img" data-title="img及background-image差异" data-url="LippiOuYang.github.io/blog/2017/09/h5-img.html">
 	</div>
  </div> -->
 <!-- 多说评论框 end -->
@@ -374,7 +344,7 @@ var duoshuoQuery = {short_name:"lippiouyang"};
       </div>
       
       <a href="/index.html" class="categories-list-item" cate="All">
-        All<span class="my-badge"> 6</span>
+        All<span class="my-badge"> 10</span>
       </a>
       
         <a href="javascript:;" class="categories-list-item" cate="前端知识积累">
@@ -382,7 +352,11 @@ var duoshuoQuery = {short_name:"lippiouyang"};
         </a>
       
         <a href="javascript:;" class="categories-list-item" cate="js学习笔记">
-          js学习笔记 <span class="my-badge">4</span>
+          js学习笔记 <span class="my-badge">3</span>
+        </a>
+      
+        <a href="javascript:;" class="categories-list-item" cate="h5随记">
+          h5随记 <span class="my-badge">3</span>
         </a>
       
     </div>

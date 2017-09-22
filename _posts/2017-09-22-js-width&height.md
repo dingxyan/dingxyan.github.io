@@ -1,7 +1,7 @@
 ---
 layout: post
 title:   js 各种宽高
-categories: js学习笔记
+categories: 前端知识积累
 tags:   js width height
 ---
 ## 1. Element.clientWidth Element.clientHeight

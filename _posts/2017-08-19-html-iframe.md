@@ -16,12 +16,12 @@ iframe在前端开发过程中应用广泛，其主要是将一个页面作为�
 **接下来，我们聊一聊，iframe中，如何进行事件的绑定**
 ## iframe的事件绑定
 ### 1. 事件绑定
-`$('iframe').load(function(){
+```$('iframe').load(function(){
 	$('iframe').contents().click(function(){console.log("test1")});//会为所有iframe绑定事件
 	//document.getElementsByTagName("iframe")[0].contentWindow.document.onclick=function(){console.log("test”)}//按照序号为每一个iframe绑定事件
 	//document.getElementsByTagName("iframe")[0].contentWindow.onclick=function(){console.log("test”)}//同上
 });
-`
+```
 contentWindow用于获取iframe内容，原生写法，这个属性是只读的，iframe本身不能绑定事件，要获取其内容绑定事件，
 $('iframe').find('body')//undefined
 $('iframe').contents().find('body’)//ok
@@ -29,7 +29,8 @@ $('iframe').contents().find('body’)//ok
 ### 2. 事件委托
 无法实现，因为事件冒泡到自己的document就会停止，不会继续向上，所以在外层无法检测内层的事件冒泡。
 ### 3. each
-`$(document).ready(function () {
+```
+$(document).ready(function () {
     $("iframe").each(function () {
         var iframe = $(this);
         iframe.on("load", function () { //保证完全加载完成
@@ -43,9 +44,10 @@ $('iframe').contents().find('body’)//ok
         });
     });
 });
-`
+```
 ### 4. 伪类
-`.g-content:after{
+```
+.g-content:after{
       content:"";
       position:absolute;
       z-index:1;
@@ -57,6 +59,6 @@ $('iframe').contents().find('body’)//ok
 $("#j_content").on("click",function(){
     console.log("test")
 })
-`
+```
 给iframe的父容器添加伪类after，并给其绑定事件，缺点是，ifrmame内部的所有事件都会被遮挡，不会响应。
 

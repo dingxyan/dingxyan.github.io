@@ -126,53 +126,54 @@
 <h3 id="js解析">js解析</h3>
 <p>JS解析的时候会过滤掉空格，制表符，换页符等；
 对于回车符号，如果结尾有分号，会被忽略，否则，会做以下处理：
-<strong>如果当前行与下一行不能合在一起被解析，那么当前行会被加上分号</strong>，例如
-<code class="highlighter-rouge">
-var a  
+<strong>如果当前行与下一行不能合在一起被解析，那么当前行会被加上分号</strong>，例如</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var a  
 a  
 =  
 3  
 console.log(a)
-</code>
-会被解析为
-<code class="highlighter-rouge">
-var a;  
+</code></pre>
+</div>
+<p>会被解析为</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var a;  
 a=3;  
 console.log(a);
-</code>
-再如：
-<code class="highlighter-rouge">
-var p = a+b+f  
+</code></pre>
+</div>
+<p>再如：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var p = a+b+f  
 (c+d).toString()
-</code>
-会被解析为
-<code class="highlighter-rouge">
-var p = a+b+f(c+d).toString(); 
-</code></p>
+</code></pre>
+</div>
+<p>会被解析为</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var p = a+b+f(c+d).toString(); 
+</code></pre>
+</div>
 
 <p><strong>其中有2种情况异常：</strong>
-情况1：
-<code class="highlighter-rouge">
-return  
+情况1：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>return  
 true 
-</code>
-会被解析为
-<code class="highlighter-rouge">
-return;  
+</code></pre>
+</div>
+<p>会被解析为</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>return;  
 true;
-</code>
-因此 return 后面不要跟回车；
-情况2：
-<code class="highlighter-rouge">
-x  
+</code></pre>
+</div>
+<p>因此 return 后面不要跟回车；
+情况2：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>x  
 ++  
 y
-</code>
-会被解析为
-<code class="highlighter-rouge">
-x;  
-++y; </code>
-分号可省略，省略有风险。在写组件的时候，往往习惯在开头加一个分号，这样可以防止之前没有分号，导致的解析错误。</p>
+</code></pre>
+</div>
+<p>会被解析为</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>x;  
+++y;  
+</code></pre>
+</div>
+<p>分号可省略，省略有风险。在写组件的时候，往往习惯在开头加一个分号，这样可以防止之前没有分号，导致的解析错误。</p>
 <h3 id="保留字">保留字</h3>
 <p>js标识符规定以字母、下划线、$开头；
 js有很多保留字，不能用于变量命名，例如 class, const, enum, export, extends, import, super, 以及在严格模式下的保留字interface, implements, let, private, public, yield, package, protected, static, 严格模式下并非保留字但不能用于保留字的 arguments, eval;
@@ -221,9 +222,9 @@ js有很多保留字，不能用于变量命名，例如 class, const, enum, exp
               
                 
 		<li>
-                  <a href="/blog/2017/09/h5.html" class="post-list-item">
-                    <h2>h5随记</h2>
-                    <span class="date">Sep 14, 2017</span>
+                  <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
+                    <h2>js 各种宽高</h2>
+                    <span class="date">Sep 22, 2017</span>
                   </a>
 		</li>
                 
@@ -251,15 +252,6 @@ js有很多保留字，不能用于变量命名，例如 class, const, enum, exp
               
                 
 		<li>
-                  <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
-                    <h2>js 各种宽高</h2>
-                    <span class="date">Sep 22, 2017</span>
-                  </a>
-		</li>
-                
-              
-                
-		<li>
                   <a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html" class="post-list-item">
                     <h2>Javascript权威指南学习笔记1：第三章</h2>
                     <span class="date">Sep 13, 2017</span>
@@ -281,6 +273,45 @@ js有很多保留字，不能用于变量命名，例如 class, const, enum, exp
                   <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html" class="post-list-item">
                     <h2>Javascript权威指南学习笔记1：第一章</h2>
                     <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+            
+          </ul>
+	</div>
+        
+	<div post-cate="h5随记">
+          <ul class="posts">
+            
+              
+                
+              
+            
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-map.html" class="post-list-item">
+                    <h2>百度地图及高德地图一些使用记录</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-img.html" class="post-list-item">
+                    <h2>img及background-image差异</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-location.html" class="post-list-item">
+                    <h2>h5获取定位</h2>
+                    <span class="date">Sep 14, 2017</span>
                   </a>
 		</li>
                 
@@ -370,7 +401,7 @@ var duoshuoQuery = {short_name:"lippiouyang"};
       </div>
       
       <a href="/index.html" class="categories-list-item" cate="All">
-        All<span class="my-badge"> 6</span>
+        All<span class="my-badge"> 10</span>
       </a>
       
         <a href="javascript:;" class="categories-list-item" cate="前端知识积累">
@@ -378,7 +409,11 @@ var duoshuoQuery = {short_name:"lippiouyang"};
         </a>
       
         <a href="javascript:;" class="categories-list-item" cate="js学习笔记">
-          js学习笔记 <span class="my-badge">4</span>
+          js学习笔记 <span class="my-badge">3</span>
+        </a>
+      
+        <a href="javascript:;" class="categories-list-item" cate="h5随记">
+          h5随记 <span class="my-badge">3</span>
         </a>
       
     </div>
