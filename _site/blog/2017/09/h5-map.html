@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="百度地图及高德地图一些使用记录 - 久矻矻 - dxy(dingxyan@163.com)">
+    <meta name="description" content="百度地图及高德地图一些使用 - 久矻矻 - dxy(dingxyan@163.com)">
     <title>
-      百度地图及高德地图一些使用记录 - 久矻矻
+      百度地图及高德地图一些使用 - 久矻矻
     </title>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -110,7 +110,7 @@
         	<div class="all-posts" post-cate="All">
  		<header>
 		<h1>
-		  百度地图及高德地图一些使用记录
+		  百度地图及高德地图一些使用
 		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-09-22-h5-map.md" target="_blank">纠错</a>&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-time"></span>
 			22 Sep 2017
@@ -120,7 +120,92 @@
 		<!-- Author -->
 		<hr>
 		 <article>
-		<p>百度地图及高德地图，调用，使用，反GEo</p>
+		<h2 id="百度地图">百度地图</h2>
+<h4 id="初始化方法">初始化方法：</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=VBf5****************"&gt;&lt;/script&gt;
+</code></pre>
+</div>
+<p>使用script标签引入到页面，其中ak是需要在网站上申请的。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>map = new BMap.Map("map");//初始化
+map.centerAndZoom(new BMap.Point(116.417854,39.921988), 15);//设定地图层级及中心
+</code></pre>
+</div>
+<h4 id="添加标注">添加标注</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>var marker = new BMap.Marker(new BMap.Point(baidu_lat,baidu_lon));  // 创建标注
+map.addOverlay(marker);// 将标注添加到地图中
+</code></pre>
+</div>
+<h4 id="添加自定义标注">添加自定义标注</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>var iconLocal = new BMap.Icon("img url", new BMap.Size(19, 19), {  
+    offset: new BMap.Size(8, 16), // 指定定位位置  
+    imageOffset: new BMap.Size(-132, -109), // 设置图片偏移
+    imageSize: new BMap.Size(200,200)
+});
+var markerLocal = new BMap.Marker(new BMap.Point(postion.lng,postion.lat),{icon: iconLocal});  // 创建标注
+map.addOverlay(markerLocal);// 将标注添加到地图中
+</code></pre>
+</div>
+<p>注：百度地图的marker每次不能加载太多，会特别卡，因此在每次添加新的之前，最好将上次添加的取消	<code class="highlighter-rouge">map.removeOverlay(marker);</code>。</p>
+
+<h4 id="异步加载">异步加载</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>function loadMap(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "http://api.map.baidu.com/api?v=2.0&amp;ak=VBf5eApmFMSBKuWmDGr0icUt40qRTI4c&amp;callback=testInit";
+    document.body.appendChild(script);
+}
+//配合地图初始化
+function testInit(){}
+</code></pre>
+</div>
+<p>异步加载的时候，如果希望js加载完成便执行初始化地图的方法，那么需要在链接后面加callback，而callback的值便是js加载完成后要执行的方法，并且这个方法需要时全局方法，否则会报错；然而经过测试，callback的值可以是一个非全局的方法，这个方法不会被调用，此时js也可以加载成功的（也许这是一个bug）。</p>
+
+<h4 id="添加信息窗口">添加信息窗口</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>var opts = {// 信息窗口参数
+    width : 300,
+    offset: {height:-25,width:0},
+    enableCloseOnClick: false
+};
+map.closeInfoWindow();
+//先关掉上一个，否则如果你每次改变信息窗口的时候，重新将当前的位置设为中心的话，那么信息窗口的位置等于没有改拜年，这个时候信息窗口会闪一下
+var point = new BMap.Point(baidu_lat,baidu_lon);
+var infoHtml = me.getInfoHtml(index);//信息窗口的内容支持html字符串
+
+var infoWindow = new BMap.InfoWindow(infoHtml,opts);// 创建信息窗口对象 
+
+infoWindow.addEventListener("open",function(){
+    clearTimeout(time2);
+    $("#qrcode").qrcode(qrcodeurl);//添加二维码
+    time2 = setTimeout(function(){
+        var h1 = $(".BMap_center").height();
+        var height = 50 + h1;
+        $(".BMap_pop").css({"width":"332px","height":height+"px"});
+    },100)
+})//为什么会有这段代码，下面解释
+map.centerAndZoom(point,Data.zoom);
+
+clearTimeout(time);
+time = setTimeout(function(){
+    map.openInfoWindow(infoWindow,point); //开启信息窗口，同样为了防止上面说的闪一下，延迟一点开启
+},300);
+</code></pre>
+</div>
+<p>为什么会有上面那段代码呢，有2个原因，这里解释：
+原因一，目的是为了在信息窗口显示二维码，信息窗口的生成是需要时间的，那么如果先生成二维码，此时并没有信息窗口的dom，会出现信息窗口先打开并没有加载上二维码的情况，而信息窗口打开之后再生产二维码，一来需要监听信息窗口打开事件，而来此时信息窗口会先是有一块空白，不好看，所以需要，在信息窗口创建完毕，还未打开的时候，将二维码写入；
+原因二，百度地图默认的信息窗口，是由几张图片以及中间的一块内容区域拼成的，这样有个极大的问题，对于一些分辨率低的显示设备，在拼接处会有一条条的线，像是屏幕裂掉的，而且更加坑的是，整个信息窗口，本身是在一个dom中的，但是这个dom没有宽高！！没有宽高！！，所以，给整个信息窗口设置背景色也不行，所以，在每次信息窗口加载完成并打开的时候，计算整个信息窗口的宽高，然后再给其设置背景色，这里的open事件是打开事件，但并不是只打开后，而是打开中，所以setTimeout一下，窗口应该打开了，可以计算得到宽高了（加一个大大的无语😓）。</p>
+
+<p>注：百度地图提供的信息窗口有最小宽高，如果在手机上使用，非常大，而且信息窗口不能自定义样式，非常之坑，因此如果你要美化好看，需要使用自定义的。</p>
+<h4 id="根据经纬度获取城市信息">根据经纬度获取城市信息</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>var postion = {"lng":116.417854,"lat":39.921988};
+var gc = new BMap.Geocoder();
+gc.getLocation(new BMap.Point(postion.lng,postion.lat), function(rs){
+    var addComp = rs.addressComponents;
+    alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+});
+</code></pre>
+</div>
+
+<h2 id="高德地图">高德地图</h2>
 
 		  </article>
 		<hr>
@@ -135,7 +220,7 @@
 	  <span class="next">
 	    上篇：
 	    <a href="/blog/2017/09/h5-img.html">
-	      img及background-image差异
+	      img及background-image
 	    </a>
 	  </span>
 	   
@@ -143,7 +228,7 @@
 	  <span class="prev">
 	    下篇：
 	    <a href="/blog/2017/09/h5-search-keybord.html">
-	      H5 Search Keybord
+	      手机键盘“开始”触发搜索
 	    </a>
 	  </span>
 	  
@@ -163,6 +248,15 @@
 		<li>
                   <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
                     <h2>js 各种宽高</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5-img.html" class="post-list-item">
+                    <h2>img及background-image</h2>
                     <span class="date">Sep 22, 2017</span>
                   </a>
 		</li>
@@ -230,8 +324,8 @@
               
                 
 		<li>
-                  <a href="/blog/2017/09/h5-map.html" class="post-list-item">
-                    <h2>百度地图及高德地图一些使用记录</h2>
+                  <a href="/blog/2017/09/h5-search-keybord.html" class="post-list-item">
+                    <h2>手机键盘“开始”触发搜索</h2>
                     <span class="date">Sep 22, 2017</span>
                   </a>
 		</li>
@@ -239,8 +333,8 @@
               
                 
 		<li>
-                  <a href="/blog/2017/09/h5-img.html" class="post-list-item">
-                    <h2>img及background-image差异</h2>
+                  <a href="/blog/2017/09/h5-map.html" class="post-list-item">
+                    <h2>百度地图及高德地图一些使用</h2>
                     <span class="date">Sep 22, 2017</span>
                   </a>
 		</li>
@@ -274,7 +368,7 @@ UY END -->
 <!-- 多说评论框 start -->
   <!-- <div class="post-comment">
             <span>Comments</span>
-	<div class="ds-thread" data-thread-key="/blog/2017/09/h5-map" data-title="百度地图及高德地图一些使用记录" data-url="LippiOuYang.github.io/blog/2017/09/h5-map.html">
+	<div class="ds-thread" data-thread-key="/blog/2017/09/h5-map" data-title="百度地图及高德地图一些使用" data-url="LippiOuYang.github.io/blog/2017/09/h5-map.html">
 	</div>
  </div> -->
 <!-- 多说评论框 end -->
@@ -344,7 +438,7 @@ var duoshuoQuery = {short_name:"lippiouyang"};
       </a>
       
         <a href="javascript:;" class="categories-list-item" cate="前端知识积累">
-          前端知识积累 <span class="my-badge">2</span>
+          前端知识积累 <span class="my-badge">3</span>
         </a>
       
         <a href="javascript:;" class="categories-list-item" cate="js学习笔记">

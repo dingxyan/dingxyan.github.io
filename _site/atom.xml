@@ -4,7 +4,7 @@
  <title>久矻矻</title>
  <link href="http://http://coolshell.info/atom.xml" rel="self"/>
  <link href="http://http://coolshell.info"/>
- <updated>2017-09-22T08:00:46+00:00</updated>
+ <updated>2017-09-22T11:09:57+00:00</updated>
  <author>
    <name>dxy</name>
    <email>dingxyan@163.com</email>
@@ -57,33 +57,150 @@ Element.getClientRects()&lt;/p&gt;
  </entry>
  
  <entry>
-   <title>H5 Search Keybord</title>
+   <title>手机键盘“开始”触发搜索</title>
    <link href="http://http://coolshell.info/blog/2017/09/h5-search-keybord.html"/>
    <updated>2017-09-22T00:00:00+00:00</updated>
    <id>/blog/2017/09/h5-search-keybord</id>
-   <content type="html">&lt;p&gt;手机键盘“开始”触发搜索&lt;/p&gt;
+   <content type="html">&lt;p&gt;html:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form id=&quot;search&quot; action=&quot;#&quot;&amp;gt;
+	&amp;lt;input placeholder=&quot;&quot; type=&quot;search&quot; name=&quot;shops&quot; id=&quot;shopName&quot;&amp;gt;
+	&amp;lt;div class=&quot;search-btn&quot;&amp;gt;&amp;lt;span id=&quot;getShops&quot; class=&quot;search-icon&quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;js&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$('#getShops').on('click', function(event){
+    var name = $.trim($(&quot;#shopName&quot;).val());
+    //code
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </content>
  </entry>
  
  <entry>
-   <title>百度地图及高德地图一些使用记录</title>
+   <title>百度地图及高德地图一些使用</title>
    <link href="http://http://coolshell.info/blog/2017/09/h5-map.html"/>
    <updated>2017-09-22T00:00:00+00:00</updated>
    <id>/blog/2017/09/h5-map</id>
-   <content type="html">&lt;p&gt;百度地图及高德地图，调用，使用，反GEo&lt;/p&gt;
+   <content type="html">&lt;h2 id=&quot;百度地图&quot;&gt;百度地图&lt;/h2&gt;
+&lt;h4 id=&quot;初始化方法&quot;&gt;初始化方法：&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot; src=&quot;http://api.map.baidu.com/api?v=2.0&amp;amp;ak=VBf5****************&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;使用script标签引入到页面，其中ak是需要在网站上申请的。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;map = new BMap.Map(&quot;map&quot;);//初始化
+map.centerAndZoom(new BMap.Point(116.417854,39.921988), 15);//设定地图层级及中心
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;添加标注&quot;&gt;添加标注&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var marker = new BMap.Marker(new BMap.Point(baidu_lat,baidu_lon));  // 创建标注
+map.addOverlay(marker);// 将标注添加到地图中
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;添加自定义标注&quot;&gt;添加自定义标注&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var iconLocal = new BMap.Icon(&quot;img url&quot;, new BMap.Size(19, 19), {  
+    offset: new BMap.Size(8, 16), // 指定定位位置  
+    imageOffset: new BMap.Size(-132, -109), // 设置图片偏移
+    imageSize: new BMap.Size(200,200)
+});
+var markerLocal = new BMap.Marker(new BMap.Point(postion.lng,postion.lat),{icon: iconLocal});  // 创建标注
+map.addOverlay(markerLocal);// 将标注添加到地图中
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;注：百度地图的marker每次不能加载太多，会特别卡，因此在每次添加新的之前，最好将上次添加的取消	&lt;code class=&quot;highlighter-rouge&quot;&gt;map.removeOverlay(marker);&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;异步加载&quot;&gt;异步加载&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function loadMap(){
+    var script = document.createElement(&quot;script&quot;);
+    script.type = &quot;text/javascript&quot;;
+    script.src = &quot;http://api.map.baidu.com/api?v=2.0&amp;amp;ak=VBf5eApmFMSBKuWmDGr0icUt40qRTI4c&amp;amp;callback=testInit&quot;;
+    document.body.appendChild(script);
+}
+//配合地图初始化
+function testInit(){}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;异步加载的时候，如果希望js加载完成便执行初始化地图的方法，那么需要在链接后面加callback，而callback的值便是js加载完成后要执行的方法，并且这个方法需要时全局方法，否则会报错；然而经过测试，callback的值可以是一个非全局的方法，这个方法不会被调用，此时js也可以加载成功的（也许这是一个bug）。&lt;/p&gt;
+
+&lt;h4 id=&quot;添加信息窗口&quot;&gt;添加信息窗口&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var opts = {// 信息窗口参数
+    width : 300,
+    offset: {height:-25,width:0},
+    enableCloseOnClick: false
+};
+map.closeInfoWindow();
+//先关掉上一个，否则如果你每次改变信息窗口的时候，重新将当前的位置设为中心的话，那么信息窗口的位置等于没有改拜年，这个时候信息窗口会闪一下
+var point = new BMap.Point(baidu_lat,baidu_lon);
+var infoHtml = me.getInfoHtml(index);//信息窗口的内容支持html字符串
+
+var infoWindow = new BMap.InfoWindow(infoHtml,opts);// 创建信息窗口对象 
+
+infoWindow.addEventListener(&quot;open&quot;,function(){
+    clearTimeout(time2);
+    $(&quot;#qrcode&quot;).qrcode(qrcodeurl);//添加二维码
+    time2 = setTimeout(function(){
+        var h1 = $(&quot;.BMap_center&quot;).height();
+        var height = 50 + h1;
+        $(&quot;.BMap_pop&quot;).css({&quot;width&quot;:&quot;332px&quot;,&quot;height&quot;:height+&quot;px&quot;});
+    },100)
+})//为什么会有这段代码，下面解释
+map.centerAndZoom(point,Data.zoom);
+
+clearTimeout(time);
+time = setTimeout(function(){
+    map.openInfoWindow(infoWindow,point); //开启信息窗口，同样为了防止上面说的闪一下，延迟一点开启
+},300);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;为什么会有上面那段代码呢，有2个原因，这里解释：
+原因一，目的是为了在信息窗口显示二维码，信息窗口的生成是需要时间的，那么如果先生成二维码，此时并没有信息窗口的dom，会出现信息窗口先打开并没有加载上二维码的情况，而信息窗口打开之后再生产二维码，一来需要监听信息窗口打开事件，而来此时信息窗口会先是有一块空白，不好看，所以需要，在信息窗口创建完毕，还未打开的时候，将二维码写入；
+原因二，百度地图默认的信息窗口，是由几张图片以及中间的一块内容区域拼成的，这样有个极大的问题，对于一些分辨率低的显示设备，在拼接处会有一条条的线，像是屏幕裂掉的，而且更加坑的是，整个信息窗口，本身是在一个dom中的，但是这个dom没有宽高！！没有宽高！！，所以，给整个信息窗口设置背景色也不行，所以，在每次信息窗口加载完成并打开的时候，计算整个信息窗口的宽高，然后再给其设置背景色，这里的open事件是打开事件，但并不是只打开后，而是打开中，所以setTimeout一下，窗口应该打开了，可以计算得到宽高了（加一个大大的无语😓）。&lt;/p&gt;
+
+&lt;p&gt;注：百度地图提供的信息窗口有最小宽高，如果在手机上使用，非常大，而且信息窗口不能自定义样式，非常之坑，因此如果你要美化好看，需要使用自定义的。&lt;/p&gt;
+&lt;h4 id=&quot;根据经纬度获取城市信息&quot;&gt;根据经纬度获取城市信息&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var postion = {&quot;lng&quot;:116.417854,&quot;lat&quot;:39.921988};
+var gc = new BMap.Geocoder();
+gc.getLocation(new BMap.Point(postion.lng,postion.lat), function(rs){
+    var addComp = rs.addressComponents;
+    alert(addComp.province + &quot;, &quot; + addComp.city + &quot;, &quot; + addComp.district + &quot;, &quot; + addComp.street + &quot;, &quot; + addComp.streetNumber);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;高德地图&quot;&gt;高德地图&lt;/h2&gt;
 </content>
  </entry>
  
  <entry>
-   <title>img及background-image差异</title>
+   <title>img及background-image</title>
    <link href="http://http://coolshell.info/blog/2017/09/h5-img.html"/>
    <updated>2017-09-22T00:00:00+00:00</updated>
    <id>/blog/2017/09/h5-img</id>
-   <content type="html">&lt;p&gt;####图片及背景图的差异&lt;/p&gt;
+   <content type="html">&lt;h3 id=&quot;1-高度&quot;&gt;1. 高度&lt;/h3&gt;
+&lt;p&gt;图片可以把容器高度撑起来，而背景图不可以，对于背景图，如果不设置高度，那么宽高都是0；&lt;/p&gt;
+&lt;p&gt;对于img，不设置宽高的时候，会全部展示，并出现滚动条；&lt;/p&gt;
+&lt;p&gt;对于背景图，不设置宽高会不展示，设置宽高之后会在设定的区域内展示;&lt;/p&gt;
+&lt;p&gt;对于背景图，如果高设置为100%，那么需要position为absolute或者fixed（宽为100%，高为定植的时候不需要);&lt;/p&gt;
+
+&lt;h3 id=&quot;2-长按保存&quot;&gt;2. 长按保存&lt;/h3&gt;
+&lt;p&gt;在手机端，img可以长按保存，而背景图不可以；&lt;/p&gt;
+
+&lt;h3 id=&quot;3-白边&quot;&gt;3. 白边&lt;/h3&gt;
+&lt;p&gt;对于img及背景图，都有可能会出现白边问题，一般有2种解决方案：&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;高度
-图片可以把容器高度撑起来，而背景图不可以，对于背景图，如果不设置高度，那么宽高都是0；&lt;/li&gt;
+  &lt;li&gt;margin，padding都为0，图片display设置为block，这是一种常规的解决方案，如果解决不了，那么就采用方案2；&lt;/li&gt;
+  &lt;li&gt;设置一个背景色跟图片色值相同，这种方案也可以用于解决一些尺寸不匹配问题，例如在电视端，可以获取到的分辨率一般为1920*1080，然而对于一些浏览器差异or bug导致的差几像素，都有可能会出现白边，所以，最好给一个跟图片颜色差不多的底色，这样会是某一个颜色的边，而非白边；&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;4-float-bug&quot;&gt;4. float bug&lt;/h3&gt;
+&lt;p&gt;浏览器有个bug，当图片容器浮动的时候，会导致图片位置有问题，解决方法，设置图片的display为block；&lt;/p&gt;
+
+&lt;h3 id=&quot;5-background-image&quot;&gt;5. background image&lt;/h3&gt;
+&lt;p&gt;背景图默认会repeat，因此不想重复的话，需要设置为no-repeat;
+背景图一般需要设置background-size, cover会充满屏幕，超出的一部分裁掉，而contain会按照能容得下屏幕的宽或者高展示，另外一个按比例压缩；
+雪碧图在h5中使用，例如，雪碧图尺寸为200px*200px, 若html的font-size为fontsize，此时一般设置background-size: 200/fontsize 200/fontsize，而background-position: x/fontsize y/fontsize;&lt;/p&gt;
 </content>
  </entry>
  
@@ -92,7 +209,8 @@ Element.getClientRects()&lt;/p&gt;
    <link href="http://http://coolshell.info/blog/2017/09/h5-center.html"/>
    <updated>2017-09-22T00:00:00+00:00</updated>
    <id>/blog/2017/09/h5-center</id>
-   <content type="html">&lt;p&gt;上下左右居中&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;上下左右居中&lt;/p&gt;
 </content>
  </entry>
  
