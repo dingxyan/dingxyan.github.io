@@ -130,6 +130,7 @@
 map.centerAndZoom(new BMap.Point(116.417854,39.921988), 15);//设定地图层级及中心
 </code></pre>
 </div>
+<p>注：初始化的时候，地图放置区域的dom必须是存在的，而且宽高确定的，否则地图无法显示。</p>
 <h4 id="添加标注">添加标注</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>var marker = new BMap.Marker(new BMap.Point(baidu_lat,baidu_lon));  // 创建标注
 map.addOverlay(marker);// 将标注添加到地图中
@@ -206,6 +207,37 @@ gc.getLocation(new BMap.Point(postion.lng,postion.lat), function(rs){
 </div>
 
 <h2 id="高德地图">高德地图</h2>
+
+<h4 id="初始化">初始化</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&amp;key=您申请的key值"&gt;&lt;/script&gt;
+</code></pre>
+</div>
+<p>同样需要先申请key。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var map = new AMap.Map('map', {
+    resizeEnable: true,
+    zoom:11,
+    center: [116.397428, 39.90923]
+});
+</code></pre>
+</div>
+<h4 id="添加marker">添加marker</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>var marker = new AMap.Marker({
+    icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+    position: [116.405467, 39.907761]
+});
+marker.setMap(map);
+</code></pre>
+</div>
+<h4 id="添加信息窗口-1">添加信息窗口</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>infoWindow = new AMap.InfoWindow({
+   content: info.join("&lt;br&gt;")  //使用默认信息窗体框样式，显示信息内容
+});
+infoWindow.open(map, [116.480983, 39.989628]);
+</code></pre>
+</div>
+<p>高德地图用的少，目前还没发现什么坑，遇到了会继续补充，而且其官网讲解的非常清楚；
+个人觉得高德地图比百度地图调用关系清楚，文档也更清楚（也许是因为抄的google的缘故，哈哈哈😄）</p>
+
 
 		  </article>
 		<hr>

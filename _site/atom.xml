@@ -4,7 +4,7 @@
  <title>久矻矻</title>
  <link href="http://http://coolshell.info/atom.xml" rel="self"/>
  <link href="http://http://coolshell.info"/>
- <updated>2017-09-22T11:09:57+00:00</updated>
+ <updated>2017-09-22T12:13:56+00:00</updated>
  <author>
    <name>dxy</name>
    <email>dingxyan@163.com</email>
@@ -93,6 +93,7 @@ Element.getClientRects()&lt;/p&gt;
 map.centerAndZoom(new BMap.Point(116.417854,39.921988), 15);//设定地图层级及中心
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;p&gt;注：初始化的时候，地图放置区域的dom必须是存在的，而且宽高确定的，否则地图无法显示。&lt;/p&gt;
 &lt;h4 id=&quot;添加标注&quot;&gt;添加标注&lt;/h4&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var marker = new BMap.Marker(new BMap.Point(baidu_lat,baidu_lon));  // 创建标注
 map.addOverlay(marker);// 将标注添加到地图中
@@ -169,6 +170,37 @@ gc.getLocation(new BMap.Point(postion.lng,postion.lat), function(rs){
 &lt;/div&gt;
 
 &lt;h2 id=&quot;高德地图&quot;&gt;高德地图&lt;/h2&gt;
+
+&lt;h4 id=&quot;初始化&quot;&gt;初始化&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot; src=&quot;http://webapi.amap.com/maps?v=1.4.0&amp;amp;key=您申请的key值&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;同样需要先申请key。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var map = new AMap.Map('map', {
+    resizeEnable: true,
+    zoom:11,
+    center: [116.397428, 39.90923]
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;添加marker&quot;&gt;添加marker&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var marker = new AMap.Marker({
+    icon: &quot;http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png&quot;,
+    position: [116.405467, 39.907761]
+});
+marker.setMap(map);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h4 id=&quot;添加信息窗口-1&quot;&gt;添加信息窗口&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;infoWindow = new AMap.InfoWindow({
+   content: info.join(&quot;&amp;lt;br&amp;gt;&quot;)  //使用默认信息窗体框样式，显示信息内容
+});
+infoWindow.open(map, [116.480983, 39.989628]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;高德地图用的少，目前还没发现什么坑，遇到了会继续补充，而且其官网讲解的非常清楚；
+个人觉得高德地图比百度地图调用关系清楚，文档也更清楚（也许是因为抄的google的缘故，哈哈哈😄）&lt;/p&gt;
+
 </content>
  </entry>
  
