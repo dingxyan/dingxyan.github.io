@@ -4,12 +4,162 @@
  <title>久矻矻</title>
  <link href="http://http://coolshell.info/atom.xml" rel="self"/>
  <link href="http://http://coolshell.info"/>
- <updated>2017-09-02T08:47:51+00:00</updated>
+ <updated>2017-09-22T07:26:18+00:00</updated>
  <author>
    <name>dxy</name>
    <email>dingxyan@163.com</email>
  </author>
 
+ 
+ <entry>
+   <title>js 各种宽高</title>
+   <link href="http://http://coolshell.info/blog/2017/09/js-width&height.html"/>
+   <updated>2017-09-22T00:00:00+00:00</updated>
+   <id>/blog/2017/09/js-width&height</id>
+   <content type="html">&lt;h2 id=&quot;1-elementclientwidth-elementclientheight&quot;&gt;1. Element.clientWidth Element.clientHeight&lt;/h2&gt;
+&lt;p&gt;用于获取元素宽高，例如 document.body.clientWidth，因此，如果页面没有内容，那么获取到的height为0；
+下图展示了clientWidth及clientHeight所表示的元素的计算方法&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;    
+&lt;img src=&quot;/images/Dimensions-client.png&quot; /&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;2-elementscrollwidth&quot;&gt;2. Element.scrollWidth&lt;/h2&gt;
+&lt;p&gt;比clientWidth多滚动条的宽度&lt;/p&gt;
+&lt;h2 id=&quot;3-elementscrollheight&quot;&gt;3. Element.scrollHeight&lt;/h2&gt;
+&lt;div align=&quot;center&quot;&gt;    
+	&lt;img src=&quot;/images/scrollHeight.png&quot; /&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;4-elementoffsetwidth-elementoffsetheight&quot;&gt;4. Element.offsetWidth Element.offsetHeight&lt;/h2&gt;
+&lt;p&gt;比clientWidth多border的宽度&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;    
+&lt;img src=&quot;/images/Dimensions-offset.png&quot; /&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;5-windowscreenwidth&quot;&gt;5. window.screen.width&lt;/h2&gt;
+&lt;p&gt;获取窗口分辨率宽高，window.screen.availWidth为可见区域的&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Note that not all of the width given by this property may be available to the window itself. When other widgets occupy space that cannot be used by the window object, there is a difference in window.screen.width and window.screen.availWidth. See also window.screen.height.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;6-inner-outer&quot;&gt;6. inner outer&lt;/h2&gt;
+&lt;p&gt;window.innerWidth, window.innerHeight, 获取窗口可见区域宽高；
+window.outerWidth, window.outerHeight, 获取窗口宽高，包括滚动条、边框、控制区域&lt;/p&gt;
+&lt;h2 id=&quot;7-jq&quot;&gt;7. jq&lt;/h2&gt;
+&lt;p&gt;$(window).width(), $(window).height() 获取窗口宽高；值同于window.innerWidth, window.innerHeight，不包含padding；
+$(document).width(), $(document).height() 获取文档对象宽高，resize之后不变，当文档对象实际高度小于窗口高度的时候，会返回窗口高度&lt;/p&gt;
+&lt;h2 id=&quot;8-获取元素位置信息&quot;&gt;8. 获取元素位置信息&lt;/h2&gt;
+&lt;p&gt;Element.getBoundingClientRect()
+Element.getClientRects()&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;参考MDN开发者文档&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>h5随记</title>
+   <link href="http://http://coolshell.info/blog/2017/09/h5.html"/>
+   <updated>2017-09-14T00:00:00+00:00</updated>
+   <id>/blog/2017/09/h5</id>
+   <content type="html">&lt;ol&gt;
+  &lt;li&gt;h5获取定位
+方法1: 原声js获取定位
+`
+function getLocation(){ 
+ if (navigator.geolocation){
+     navigator.geolocation.getCurrentPosition(showPosition,showError);
+ }else{ 
+     $(“#content”).html(“浏览器不支持地理定位。”); 
+ } 
+}
+function showPosition(position){
+ var lat = position.coords.latitude; //纬度 
+ var lag = position.coords.longitude; //经度 
+ $(“#content”).html(‘纬度:’+lat+’,经度:’+lag); 
+}
+function showError(error){
+ switch(error.code) { 
+     case error.PERMISSION_DENIED: 
+         $(“#content”).html(“定位失败,用户不允许地理定位”); 
+         break; 
+     case error.POSITION_UNAVAILABLE: 
+         $(“#content”).html(“无法获取当前位置”); 
+         break; 
+     case error.TIMEOUT: 
+         $(“#content”).html(“定位失败,请求获取用户位置超时”); 
+         break; 
+     case error.UNKNOWN_ERROR: 
+         $(“#content”).html(“定位失败,定位系统失效”); 
+         break; 
+ }
+}
+getLocation();
+`
+局限：ios 10.0以上系统需要https协议才支持。
+方法2: 百度地图获取，经测试，安卓苹果都可以
+`
+var map = new BMap.Map(“content”);
+var point = new BMap.Point(116.331398,39.897445);
+map.centerAndZoom(point,12);&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;var geolocation = new BMap.Geolocation();
+geolocation.getCurrentPosition(function(r){
+	if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		var mk = new BMap.Marker(r.point);
+		map.addOverlay(mk);
+		map.panTo(r.point);
+		$(“#postion”).html(‘您的位置：’+r.point.lng+’,’+r.point.lat);
+	}
+	else {
+		$(“#postion”).html(‘failed’+this.getStatus());
+	}
+},{enableHighAccuracy: true})
+`
+手机定位都是根据GPS，并且需要用户允许定位，而目前pc端一般无GPS，那么他是如何定位的呢？
+主要有以下几种说法：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;根据ip获取定位，也就是说与运营商合作，精准到每个ip区段，获取每个区段定位（我觉得不太可能这么简单，没有GPS怎么可能准确定位）；&lt;/li&gt;
+  &lt;li&gt;你手机安装了百度相关app，当使用这些软件并允许定位的时候，手机默默的提交了定位信息，而pc通过路由器偷偷的从手机获取了你的定位信息（我觉得有可能，如果是真的，真的很流氓）；&lt;/li&gt;
+  &lt;li&gt;大数据，你的手机使用百度相关app上网，并且允许定位，每次都会提交ip信息及定位信息，那么该ip段及对应的位置信息会被记录，并且不断更新，那么便可以通过ip为你准确定位（更愿意相信这种方式）。
+具体原理未考证，以上都是猜测，希望大神解惑。
+不管是什么，于互联网时代，我们还有多少隐私？&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Javascript权威指南学习笔记1：第三章</title>
+   <link href="http://http://coolshell.info/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html"/>
+   <updated>2017-09-13T00:00:00+00:00</updated>
+   <id>/blog/2017/09/js基础-3</id>
+   <content type="html">&lt;h1&gt;#&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;js浮点数
+‘
+var a=0.3-0.2;
+var b=0.4-0.3;
+a==b//false’&lt;/li&gt;
+  &lt;li&gt;常用Math
+Math.pow(2,23);//2的23次方
+Math.round(0.7);//四舍五入
+Math.ceil(0.7);//向上取整
+Math.floor(0.7);//向下取整
+Math.abs(-5);//绝对值
+Math.max(x,y,z);//
+Math.min(x,y,z);//
+Math.random();//
+Math.PI;//
+Math.E;//
+Math.sqrt();//
+Math.sin(0);//
+Math.log(10);//
+Math.log(100)/Math.LN10;//
+Math.exp();&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Javascript权威指南学习笔记1：第二章（词法结构）</title>

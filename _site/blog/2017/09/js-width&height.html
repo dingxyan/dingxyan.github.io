@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="归档：Archives - 久矻矻 - dxy(dingxyan@163.com)">
+    <meta name="description" content="js 各种宽高 - 久矻矻 - dxy(dingxyan@163.com)">
     <title>
-      归档：Archives - 久矻矻
+      js 各种宽高 - 久矻矻
     </title>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -101,39 +101,198 @@
       <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-md-8">
-          <ul class="list-unstyled">
-      
+          <!-- Blog Post -->
+<!-- Title -->
+<div class="row">
+  <div class="post-area post">
+
+ 	<div class="post-list-body">
+        	<div class="all-posts" post-cate="All">
+ 		<header>
+		<h1>
+		  js 各种宽高
+		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-09-22-js-width&height.md" target="_blank">纠错</a>&nbsp;&nbsp;
+			<span class="glyphicon glyphicon-time"></span>
+			22 Sep 2017
+		  </div>
+		</h1>
+ 		</header>
+		<!-- Author -->
+		<hr>
+		 <article>
+		<h2 id="1-elementclientwidth-elementclientheight">1. Element.clientWidth Element.clientHeight</h2>
+<p>用于获取元素宽高，例如 document.body.clientWidth，因此，如果页面没有内容，那么获取到的height为0；
+下图展示了clientWidth及clientHeight所表示的元素的计算方法</p>
+<div align="center">    
+<img src="/images/Dimensions-client.png" />
+</div>
+<h2 id="2-elementscrollwidth">2. Element.scrollWidth</h2>
+<p>比clientWidth多滚动条的宽度</p>
+<h2 id="3-elementscrollheight">3. Element.scrollHeight</h2>
+<div align="center">    
+	<img src="/images/scrollHeight.png" />
+</div>
+<h2 id="4-elementoffsetwidth-elementoffsetheight">4. Element.offsetWidth Element.offsetHeight</h2>
+<p>比clientWidth多border的宽度</p>
+<div align="center">    
+<img src="/images/Dimensions-offset.png" />
+</div>
+<h2 id="5-windowscreenwidth">5. window.screen.width</h2>
+<p>获取窗口分辨率宽高，window.screen.availWidth为可见区域的</p>
+<blockquote>
+  <p>Note that not all of the width given by this property may be available to the window itself. When other widgets occupy space that cannot be used by the window object, there is a difference in window.screen.width and window.screen.availWidth. See also window.screen.height.</p>
+</blockquote>
+
+<h2 id="6-inner-outer">6. inner outer</h2>
+<p>window.innerWidth, window.innerHeight, 获取窗口可见区域宽高；
+window.outerWidth, window.outerHeight, 获取窗口宽高，包括滚动条、边框、控制区域</p>
+<h2 id="7-jq">7. jq</h2>
+<p>$(window).width(), $(window).height() 获取窗口宽高；值同于window.innerWidth, window.innerHeight，不包含padding；
+$(document).width(), $(document).height() 获取文档对象宽高，resize之后不变，当文档对象实际高度小于窗口高度的时候，会返回窗口高度</p>
+<h2 id="8-获取元素位置信息">8. 获取元素位置信息</h2>
+<p>Element.getBoundingClientRect()
+Element.getClientRects()</p>
+
+<blockquote>
+  <p>参考MDN开发者文档</p>
+</blockquote>
+
+
+		  </article>
+		<hr>
+	<br/>
+        <p>
+          <!-- 本作品由 <a href="mailto:dingxyan@163.com">dxy</a> 创作，采用 -->
+          <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="查看协议详细信息" target="_blank">CC BY-NC-SA 3.0 许可协议</a> -->
+          <!-- 进行许可。 -->
+        </p>
+	<div style="margin-top:10px;margin-bottom:10px">
 	  
-    <h2>2017</h2> 
-	 
-    <li><h4><span>22 Sep 2017</span>&raquo;<a href="/blog/2017/09/js-width&amp;height.html">js 各种宽高</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>14 Sep 2017</span>&raquo;<a href="/blog/2017/09/h5.html">h5随记</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>13 Sep 2017</span>&raquo;<a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html">Javascript权威指南学习笔记1：第三章</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>19 Aug 2017</span>&raquo;<a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-2.html">Javascript权威指南学习笔记1：第二章（词法结构）</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>19 Aug 2017</span>&raquo;<a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html">Javascript权威指南学习笔记1：第一章</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>19 Aug 2017</span>&raquo;<a href="/blog/2017/08/html-iframe.html">我所知道的iframe</a></h4></li> 
-	 
-</ul>
+	  <span class="next">
+	    上篇：
+	    <a href="/blog/2017/09/h5.html">
+	      h5随记
+	    </a>
+	  </span>
+	   
+	  
+	</div>
+	</div>
+	
+        
+	<div post-cate="前端知识积累">
+          <ul class="posts">
+            
+              
+                
+              
+            
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5.html" class="post-list-item">
+                    <h2>h5随记</h2>
+                    <span class="date">Sep 14, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/08/html-iframe.html" class="post-list-item">
+                    <h2>我所知道的iframe</h2>
+                    <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+            
+          </ul>
+	</div>
+        
+	<div post-cate="js学习笔记">
+          <ul class="posts">
+            
+              
+                
+              
+            
+              
+                
+		<li>
+                  <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
+                    <h2>js 各种宽高</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html" class="post-list-item">
+                    <h2>Javascript权威指南学习笔记1：第三章</h2>
+                    <span class="date">Sep 13, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-2.html" class="post-list-item">
+                    <h2>Javascript权威指南学习笔记1：第二章（词法结构）</h2>
+                    <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html" class="post-list-item">
+                    <h2>Javascript权威指南学习笔记1：第一章</h2>
+                    <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+            
+          </ul>
+	</div>
+        
+	 </div>
+
+</div>
+
+
+<!-- Blog Comments -->
+<div class="media">
+  <!-- UY BEGIN 
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2023801"></script>
+UY END -->
+
+<!-- 多说评论框 start -->
+  <!-- <div class="post-comment">
+            <span>Comments</span>
+	<div class="ds-thread" data-thread-key="/blog/2017/09/js-width&height" data-title="js 各种宽高" data-url="LippiOuYang.github.io/blog/2017/09/js-width&height.html">
+	</div>
+ </div> -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<!-- <script type="text/javascript">
+var duoshuoQuery = {short_name:"lippiouyang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script> -->
+<!-- 多说公共JS代码 end -->
+ 
+</div> 
+</div>
 
         </div>
 

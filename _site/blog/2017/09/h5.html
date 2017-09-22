@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="归档：Archives - 久矻矻 - dxy(dingxyan@163.com)">
+    <meta name="description" content="h5随记 - 久矻矻 - dxy(dingxyan@163.com)">
     <title>
-      归档：Archives - 久矻矻
+      h5随记 - 久矻矻
     </title>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -101,39 +101,233 @@
       <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-md-8">
-          <ul class="list-unstyled">
-      
+          <!-- Blog Post -->
+<!-- Title -->
+<div class="row">
+  <div class="post-area post">
+
+ 	<div class="post-list-body">
+        	<div class="all-posts" post-cate="All">
+ 		<header>
+		<h1>
+		  h5随记
+		  <div class="post-date"><a href="https://github.com/https://dingxyan.github.io/https://dingxyan.github.io.github.io/edit/master/_posts/2017-09-14-h5.md" target="_blank">纠错</a>&nbsp;&nbsp;
+			<span class="glyphicon glyphicon-time"></span>
+			14 Sep 2017
+		  </div>
+		</h1>
+ 		</header>
+		<!-- Author -->
+		<hr>
+		 <article>
+		<ol>
+  <li>h5获取定位
+方法1: 原声js获取定位
+`
+function getLocation(){ 
+ if (navigator.geolocation){
+     navigator.geolocation.getCurrentPosition(showPosition,showError);
+ }else{ 
+     $(“#content”).html(“浏览器不支持地理定位。”); 
+ } 
+}
+function showPosition(position){
+ var lat = position.coords.latitude; //纬度 
+ var lag = position.coords.longitude; //经度 
+ $(“#content”).html(‘纬度:’+lat+’,经度:’+lag); 
+}
+function showError(error){
+ switch(error.code) { 
+     case error.PERMISSION_DENIED: 
+         $(“#content”).html(“定位失败,用户不允许地理定位”); 
+         break; 
+     case error.POSITION_UNAVAILABLE: 
+         $(“#content”).html(“无法获取当前位置”); 
+         break; 
+     case error.TIMEOUT: 
+         $(“#content”).html(“定位失败,请求获取用户位置超时”); 
+         break; 
+     case error.UNKNOWN_ERROR: 
+         $(“#content”).html(“定位失败,定位系统失效”); 
+         break; 
+ }
+}
+getLocation();
+`
+局限：ios 10.0以上系统需要https协议才支持。
+方法2: 百度地图获取，经测试，安卓苹果都可以
+`
+var map = new BMap.Map(“content”);
+var point = new BMap.Point(116.331398,39.897445);
+map.centerAndZoom(point,12);</li>
+</ol>
+
+<p>var geolocation = new BMap.Geolocation();
+geolocation.getCurrentPosition(function(r){
+	if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		var mk = new BMap.Marker(r.point);
+		map.addOverlay(mk);
+		map.panTo(r.point);
+		$(“#postion”).html(‘您的位置：’+r.point.lng+’,’+r.point.lat);
+	}
+	else {
+		$(“#postion”).html(‘failed’+this.getStatus());
+	}
+},{enableHighAccuracy: true})
+`
+手机定位都是根据GPS，并且需要用户允许定位，而目前pc端一般无GPS，那么他是如何定位的呢？
+主要有以下几种说法：</p>
+<ol>
+  <li>根据ip获取定位，也就是说与运营商合作，精准到每个ip区段，获取每个区段定位（我觉得不太可能这么简单，没有GPS怎么可能准确定位）；</li>
+  <li>你手机安装了百度相关app，当使用这些软件并允许定位的时候，手机默默的提交了定位信息，而pc通过路由器偷偷的从手机获取了你的定位信息（我觉得有可能，如果是真的，真的很流氓）；</li>
+  <li>大数据，你的手机使用百度相关app上网，并且允许定位，每次都会提交ip信息及定位信息，那么该ip段及对应的位置信息会被记录，并且不断更新，那么便可以通过ip为你准确定位（更愿意相信这种方式）。
+具体原理未考证，以上都是猜测，希望大神解惑。
+不管是什么，于互联网时代，我们还有多少隐私？</li>
+</ol>
+
+
+		  </article>
+		<hr>
+	<br/>
+        <p>
+          <!-- 本作品由 <a href="mailto:dingxyan@163.com">dxy</a> 创作，采用 -->
+          <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="查看协议详细信息" target="_blank">CC BY-NC-SA 3.0 许可协议</a> -->
+          <!-- 进行许可。 -->
+        </p>
+	<div style="margin-top:10px;margin-bottom:10px">
 	  
-    <h2>2017</h2> 
-	 
-    <li><h4><span>22 Sep 2017</span>&raquo;<a href="/blog/2017/09/js-width&amp;height.html">js 各种宽高</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>14 Sep 2017</span>&raquo;<a href="/blog/2017/09/h5.html">h5随记</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>13 Sep 2017</span>&raquo;<a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html">Javascript权威指南学习笔记1：第三章</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>19 Aug 2017</span>&raquo;<a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-2.html">Javascript权威指南学习笔记1：第二章（词法结构）</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>19 Aug 2017</span>&raquo;<a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html">Javascript权威指南学习笔记1：第一章</a></h4></li> 
-	 
-	    
-	 
-	 
-    <li><h4><span>19 Aug 2017</span>&raquo;<a href="/blog/2017/08/html-iframe.html">我所知道的iframe</a></h4></li> 
-	 
-</ul>
+	  <span class="next">
+	    上篇：
+	    <a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html">
+	      Javascript权威指南学习笔记1：第三章
+	    </a>
+	  </span>
+	   
+	  
+	  <span class="prev">
+	    下篇：
+	    <a href="/blog/2017/09/js-width&height.html">
+	      js 各种宽高
+	    </a>
+	  </span>
+	  
+	</div>
+	</div>
+	
+        
+	<div post-cate="前端知识积累">
+          <ul class="posts">
+            
+              
+                
+              
+            
+              
+                
+		<li>
+                  <a href="/blog/2017/09/h5.html" class="post-list-item">
+                    <h2>h5随记</h2>
+                    <span class="date">Sep 14, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/08/html-iframe.html" class="post-list-item">
+                    <h2>我所知道的iframe</h2>
+                    <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+            
+          </ul>
+	</div>
+        
+	<div post-cate="js学习笔记">
+          <ul class="posts">
+            
+              
+                
+              
+            
+              
+                
+		<li>
+                  <a href="/blog/2017/09/js-width&height.html" class="post-list-item">
+                    <h2>js 各种宽高</h2>
+                    <span class="date">Sep 22, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/09/js%E5%9F%BA%E7%A1%80-3.html" class="post-list-item">
+                    <h2>Javascript权威指南学习笔记1：第三章</h2>
+                    <span class="date">Sep 13, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-2.html" class="post-list-item">
+                    <h2>Javascript权威指南学习笔记1：第二章（词法结构）</h2>
+                    <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+                
+		<li>
+                  <a href="/blog/2017/08/js%E5%9F%BA%E7%A1%80-1.html" class="post-list-item">
+                    <h2>Javascript权威指南学习笔记1：第一章</h2>
+                    <span class="date">Aug 19, 2017</span>
+                  </a>
+		</li>
+                
+              
+            
+          </ul>
+	</div>
+        
+	 </div>
+
+</div>
+
+
+<!-- Blog Comments -->
+<div class="media">
+  <!-- UY BEGIN 
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2023801"></script>
+UY END -->
+
+<!-- 多说评论框 start -->
+  <!-- <div class="post-comment">
+            <span>Comments</span>
+	<div class="ds-thread" data-thread-key="/blog/2017/09/h5" data-title="h5随记" data-url="LippiOuYang.github.io/blog/2017/09/h5.html">
+	</div>
+ </div> -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<!-- <script type="text/javascript">
+var duoshuoQuery = {short_name:"lippiouyang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script> -->
+<!-- 多说公共JS代码 end -->
+ 
+</div> 
+</div>
 
         </div>
 
