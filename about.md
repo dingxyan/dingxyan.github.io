@@ -1,13 +1,14 @@
 ---
-layout: default
-title: "关于：About"
+layout: page
+titles:
+  en: About
+  zh: 关于
+  zh-Hans: 关于
+  zh-Hant: 關於
+key: page-about
 ---
 
-## 个人简介：
+Welcome to my blog!
 
-* dxy
-* web前端开发
-
-## 联系方式
-
-邮箱: dingxyan@163.com
+{% highlight javascript %}
+{% endhighlight %}
