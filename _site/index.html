@@ -210,205 +210,173 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/09/22/js-width&height.html">js 各种宽高</a></h1>
-          <div class="m-article-content">1. Element.clientWidth Element.clientHeight
-用于获取元素宽高，例如 document.body.clientWidth，因此，如果页面没有内容，那么获取到的height为0；
-下图展示了clientWidth及clientHeight所表示的元素的计算方法
-    
+    <div class="m-post-list"><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/03/19/Promise%E5%AD%A6%E4%B9%A0.html">Promise 学习</a></h1>
+          <div class="m-article-content">Promise
+Promise用于异步编程，其实就是一种语法糖。
+
+优点：将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数；提供统一的接口，使得异步操作更加容易。
+
+缺点：一旦创建Promise对象就会立刻执行，不能中途取消；如果不设置回调函数，内部抛出的错误不会反馈到外部；当处于pending状态的时候，不知道此时是刚刚开始，还是即将结束。
+
+用法类似于jq的defered，区别是，promise的状态不允许被修改，而defered状态可以被修改。
 
 
-2. Element.scrollWidth
-比clientWidth多滚动条的宽度
-3. Element.scrollHeight
-    
-	
-
-4. Element.offsetWidth Element.offsetHeight
-比clientWidth多border的宽度
-    
+  基本栗子
 
 
-5. window.screen.width
-获取窗口分辨率宽高，window....</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/09/22/js-width&height.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
+var pro = new Promise(function(resolve,reject){
+	console.log(1)
+	resolve();
+});
+pro.then(function(){
+	...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/03/19/Promise%E5%AD%A6%E4%B9%A0.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=ES6">ES6</a>
         </li><li>
-          <a class="pill-button" href="/all.html?tag=width">width</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=height">height</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 09月22日</span></div>
+          <a class="pill-button" href="/all.html?tag=promise">promise</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月19日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/h5%E9%9A%8F%E8%AE%B0/2017/09/22/h5-search-keybord.html">手机键盘“开始”触发搜索</a></h1>
-          <div class="m-article-content">html:
-&lt;form id="search" action="#"&gt;
-	&lt;input placeholder="" type="search" name="shops" id="shopName"&gt;
-	&lt;div class="search-btn"&gt;&lt;span id="getShops" class="search-icon"&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;/form&gt;
+</article><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">正则表达式</a></h1>
+          <div class="m-article-content">正则表达式概述
+正则用于匹配字符串，用于从字符串中检索，当然也可以用于替换；
+正则效率高，方便好用
+基本语法
+var patt=/pattern/modifiers;
+var patt=new RegExp(pattern,modifiers);
 
 
-js
-$('#getShops').on('click', function(event){
-    var name = $.trim($("#shopName").val());
-    //code
-})
+其中，pattern表示表达式的模式；modifiers表示修饰符，用于表示是否区分大小写，是否全局匹配，是否多行匹配；
+
+修饰符
+i  //是否区分大小写
+g  //全局匹配
+m  //多行匹配
 
 
-</div><a href="/h5%E9%9A%8F%E8%AE%B0/2017/09/22/h5-search-keybord.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=h5">h5</a>
+元字符
+用于匹配单个字符，常用的如下：
+.      匹配任意字符，除了换行和行结束
+^     取非，例如[^0-9]表示非数字；以任意开头，例如/^is/表示以is开头
+|      或
+\w   任意数字字母下划线，等价[0-9a-z...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=ES6">ES6</a>
         </li><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 09月22日</span></div>
+          <a class="pill-button" href="/all.html?tag=promise">promise</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月26日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/h5%E9%9A%8F%E8%AE%B0/2017/09/22/h5-map.html">百度地图及高德地图一些使用</a></h1>
-          <div class="m-article-content">百度地图
-初始化方法：
-&lt;script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=VBf5****************"&gt;&lt;/script&gt;
+</article><article><h1><a href="/%E6%B5%8B%E8%AF%95/2018/01/26/%E5%89%8D%E7%AB%AF%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html">前端单元测试</a></h1>
+          <div class="m-article-content">介绍
+单元测试（unit testing），是指对软件中的最小可测试单元进行检查和验证。对于单元测试中单元的含义，一般来说，要根据实际情况去判定其具体含义，如C语言中单元指一个函数，Java里单元指一个类，图形化的软件中可以指一个窗口或一个菜单等。总的来说，单元就是人为规定的最小的被测功能模块。单元测试是在软件开发过程中要进行的最低级别的测试活动，软件的独立单元将在与程序的其他部分相隔离的情况下进行测试。——百度百科。
+
+对于JavaScript来说，通常也是针对函数、对象和模块的测试。
+（最大覆盖率，需要覆盖到每一个条件语句）
+
+测试工具
 
 
-使用script标签引入到页面，其中ak是需要在网站上申请的。
-map = new BMap.Map("map");//初始化
-map.centerAndZoom(new BMap.Point(116.417854,39.921988), 15);//设定地图层级及中心
-
-
-注：初始化的时候，地图放置区域的dom必须是存在的，而且宽高确定的，否则地图无法显示。
-添加标注
-var marker = new BMap.Ma...</div><a href="/h5%E9%9A%8F%E8%AE%B0/2017/09/22/h5-map.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=h5">h5</a>
+  测试管理工具：Karma
+  测试框架：Mocha, jasmine
+  断言库：Chai
+  测试浏览器：PhantomJs
+  测试覆...</div><a href="/%E6%B5%8B%E8%AF%95/2018/01/26/%E5%89%8D%E7%AB%AF%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">单元测试</a>
         </li><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
+          <a class="pill-button" href="/all.html?tag=karma">karma</a>
         </li><li>
-          <a class="pill-button" href="/all.html?tag=map">map</a>
+          <a class="pill-button" href="/all.html?tag=jasmine">jasmine</a>
         </li><li>
-          <a class="pill-button" href="/all.html?tag=%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE">百度地图</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE">高德地图</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 09月22日</span></div>
+          <a class="pill-button" href="/all.html?tag=Coverage">Coverage</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月26日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/09/22/h5-img.html">img及background-image</a></h1>
-          <div class="m-article-content">1. 高度
-图片可以把容器高度撑起来，而背景图不可以，对于背景图，如果不设置高度，那么宽高都是0；
-对于img，不设置宽高的时候，会全部展示，并出现滚动条；
-对于背景图，不设置宽高会不展示，设置宽高之后会在设定的区域内展示;
-对于背景图，如果高设置为100%，那么需要position为absolute或者fixed（宽为100%，高为定植的时候不需要);
+</article><article><h1><a href="/pwa/2018/01/03/PWA.html">PWA</a></h1>
+          <div class="m-article-content">简介
+一款浏览器模拟app的技术，断网仍然可以访问已经保存的页面。
 
-2. 长按保存
-在手机端，img可以长按保存，而背景图不可以；
+普通的网页可以改造为PWA页面
 
-3. 白边
-对于img及背景图，都有可能会出现白边问题，一般有2种解决方案：
-
-
-  margin，padding都为0，图片display设置为block，这是一种常规的解决方案，如果解决不了，那么就采用方案2；
-  设置一个背景色跟图片色值相同，这种方案也可以用于...</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/09/22/h5-img.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=h5">h5</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=img">img</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 09月22日</span></div>
+  你只需要基于开放的 W3C 标准的 web 开发技术来开发一个app。不需要多客户端开发。
+  用户可以在安装前就体验你的 app。
+  不需要通过 AppStore 下载 app。app 会自动升级不需要用户升级。
+  用户会受到‘安装’的提示，点击安装会增加一个图标到用户首屏。
+  被打开时，PWA 会展示一个有吸引力的闪屏。
+  chrome 提供了可选选项，可以使 PWA 得到全屏体验。
+  必要的文件会被本地缓存，因此会比标准的web app 响应更快（也许也会比native app响应快）
+  安装及其轻量 – 或许会有几百 kb 的缓存数据。
+  网站的数据传输必须...</div><a href="/pwa/2018/01/03/PWA.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=PWA">PWA</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月03日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/h5%E9%9A%8F%E8%AE%B0/2017/09/14/h5-location.html">h5获取定位</a></h1>
-          <div class="m-article-content">方法1: 原声js获取定位
+</article><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/02/js%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90.html">JS 文档自动生成</a></h1>
+          <div class="m-article-content">
+  jsdoc，生成md
+  esdoc，生成html
 
-function getLocation(){ 
-	if (navigator.geolocation){
-		navigator.geolocation.getCurrentPosition(showPosition,showError);
-	}else{ 
-		$("#content").html("浏览器不支持地理定位。"); 
-	} 
-}
-function showPosition(position){
-	var lat = position.coords.latitude; //纬度 
-	var lag = position.coords.longitude; //经度 
-	$("#content").html('纬度:'+lat+',经度:'+...</div><a href="/h5%E9%9A%8F%E8%AE%B0/2017/09/14/h5-location.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=h5">h5</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE">百度地图</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 09月14日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2017/09/13/js%E5%9F%BA%E7%A1%80-3.html">Javascript权威指南学习笔记1：第三章</a></h1>
-          <div class="m-article-content">#
 
-  js浮点数
-    var a=0.3-0.2;
-var b=0.4-0.3;
-a==b//false
+jsdoc文档地址
+http://www.css88.com/doc/jsdoc/index.html
 
-    
+安装
+
+  npm install jsdoc
+  配置conf.json
   
-  常用Math
-    Math.pow(2,23);//2的23次方
-Math.round(0.7);//四舍五入
-Math.ceil(0.7);//向上取整
-Math.floor(0.7);//向下取整
-Math.abs(-5);//绝对值
-Math.max(x,y,z);//
-Math.min(x,y,z);//
-Math.random();//
-Math.PI;//
-Math.E;//
-Math.sqrt();//
-Math.sin(0);//
-Math.log(10);//
-Math.log(100)/Math.LN10;//
-Math.exp...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2017/09/13/js%E5%9F%BA%E7%A1%80-3.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=tag">tag</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 09月13日</span></div>
+    执行
+
+    jsdoc &lt;文件&gt;  -c conf.json &lt;-r&gt;
+
+    
+
+    其中命令行的文件会被扫描;
+
+    如果source.include包含文件夹，-r会递归
+  
+  conf.json字段说明
+     {
+     "tags": {
+         "allowUnknownTags": true,//允许自定义标签
+         "dictionaries": ...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/02/js%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=doc">doc</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月02日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2017/08/19/js%E5%9F%BA%E7%A1%80-2.html">Javascript权威指南学习笔记1：第二章（词法结构）</a></h1>
-          <div class="m-article-content">JS编码
-JS的编码基于Unicode编码，是ASCII以及Latin-1的超集，支持几乎所有语言；
-js区分大小写
-js解析
-JS解析的时候会过滤掉空格，制表符，换页符等；
-对于回车符号，如果结尾有分号，会被忽略，否则，会做以下处理：
-如果当前行与下一行不能合在一起被解析，那么当前行会被加上分号，例如
-var a  
-a  
-=  
-3  
-console.log(a)
+</article><article><h1><a href="/npm/2017/12/11/npm-%E6%89%93%E5%8C%85%E6%B5%8B%E8%AF%95.html">npm 打包 测试</a></h1>
+          <div class="m-article-content">npm 同时运行多条命令
 
+&amp;&amp; 逐条执行，&amp;并行执行
 
-会被解析为
-var a;  
-a=3;  
-console.log(a);
+对于有监听事件的，由于listen一直在执行，所以使用&amp;&amp;的时候下一条命令无法执行，所以有以下方式：
+"devdev": "node server/server.js &amp; node server/test.js"
 
+"dev:server1": "node server/server.js &amp;",
+"dev:server2": "node server/test.js &amp;",
+"dev": " npm run dev:server1 &amp;&amp; npm run dev:server2"
 
-再如：
-var p = a+b+f  
-(c+d).toString()
-
-
-会被解析为
-var p = a+b+f(c+d).toString(); 
-
-
-
-其中有2种情况异常：
-情况1：
-return  
-true 
-
-
-会被解析...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2017/08/19/js%E5%9F%BA%E7%A1%80-2.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=tag">tag</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 08月19日</span></div>
+"dev1": "node server/server.js",
+"...</div><a href="/npm/2017/12/11/npm-%E6%89%93%E5%8C%85%E6%B5%8B%E8%AF%95.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=npm">npm</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 12月11日</span></div>
   </div>
 </div>
-</article></div><nav class="m-pagination"><p>共计 9 篇文章，2 页。</p>
+</article><article><h1><a href="/npm/2017/12/11/npm-package.html">npm package.json</a></h1>
+          <div class="m-article-content">要求，严格的json格式
+
+{
+	"name": "name",//*必填，要求与项目名称一致，不允许空格和大写，要求小写字母，可以有短横线和下划线，但不能以横线或者下划线开头；当你的项目作为一个包发布后，其他项目引入的时候，引用名称便是该name
+	"version": "1.0.0",//*必填，固定三级格式
+	"main":"index.js",//程序的入口文件；当你的项目作为一个包发布后，其他项目引入的时候，默认引用该文件
+	"description":"",//描述
+	"keywords":"",//关键词，帮助检索
+	"homepage":"",//项目主页链接
+	"bugs":{
+		"url" : "https://github.com/owner/project/i...</div><a href="/npm/2017/12/11/npm-package.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=npm">npm</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 12月11日</span></div>
+  </div>
+</div>
+</article></div><nav class="m-pagination"><p>共计 17 篇文章，3 页。</p>
           <ul><li><div class="round-button inactive">
                 <div class="icon icon--prrevious"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -418,6 +386,8 @@ true
                   <div class="round-button cur"><span>1</span></div>
                 </li><li>
                     <a class="round-button" href="/blog/page2"><span>2</span></a>
+                  </li><li>
+                    <a class="round-button" href="/blog/page3"><span>3</span></a>
                   </li><li>
                 <a class="round-button" href="/blog/page2">
                   <div class="icon icon--next"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
