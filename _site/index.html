@@ -291,6 +291,33 @@ pro.then(function(){
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月19日</span></div>
   </div>
 </div>
+</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/17/jq-%E4%BA%8B%E4%BB%B6.html">jq，on，原理，event.target与event.currentTarget的区别</a></h1>
+          <div class="m-article-content">
+  event.target 返回发生事件的元素
+  event.currentTarget 返回绑定事件的元素
+
+
+$(".box").on("click", function(event){
+	console.log(event.target);
+	console.log(event.currentTarget);
+})//事件绑定在父节点
+
+
+
+$(".box").on("click", ".main1, .main2", function(event){
+	console.log(event.target);
+	console.log(event.currentTarget);//返回的和event.target相同
+})//事件绑定在父节点
+
+
+
+上面第一段代码中，事件绑定...</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/17/jq-%E4%BA%8B%E4%BB%B6.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=js">js</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=JQuery">JQuery</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月17日</span></div>
+  </div>
+</div>
 </article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/js-%E9%97%AD%E5%8C%85.html">闭包</a></h1>
           <div class="m-article-content">
   什么是闭包，什么时候用（js不是面向对象的，要想实现面向对象需要使用闭包来实现），有什么问题，内存泄漏？
@@ -371,23 +398,7 @@ F.prototype.getName=function(){
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月10日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/js-%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84.html">数组</a></h1>
-          <div class="m-article-content">不使用循环创建数组
-
-var result = Object.keys(Array.apply(null,{length:100})).map(function(item){
-    	item = (parseInt(item)+1).toString();
-    	return item;
-    });
-
-
-</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/js-%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=js">js</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Array">Array</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月10日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 37 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 46 篇文章，7 页。</p>
           <ul><li><div class="round-button inactive">
                 <div class="icon icon--prrevious"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -402,7 +413,7 @@ var result = Object.keys(Array.apply(null,{length:100})).map(function(item){
                     </li><li>
                       <a class="round-button" href="/blog/page4"><span>4</span></a>
                     </li><li><span class="omit"><svg fill="#000000" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span></li><li>
-                      <a class="round-button" href="/blog/page6"><span>6</span></a>
+                      <a class="round-button" href="/blog/page7"><span>7</span></a>
                     </li><li>
                 <a class="round-button" href="/blog/page2">
                   <div class="icon icon--next"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
