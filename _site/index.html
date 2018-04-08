@@ -210,7 +210,62 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/03/19/Promise%E5%AD%A6%E4%B9%A0.html">Promise 学习</a></h1>
+    <div class="m-post-list"><article><h1><a href="/vue/2018/04/08/vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1.html">vue学习-vue组件通信</a></h1>
+          <div class="m-article-content">vue组件通信
+
+  父组件向子组件传递数据
+
+
+props
+
+Vue.component('child',{
+	template: '&lt;div&gt;&lt;/div&gt;',
+	props:['msg']
+});
+
+Vue.component('my-comp',{
+	template:'&lt;div&gt;&lt;input v-model="msg1"&gt;&lt;child :msg="msg1"&gt;&lt;/child&gt;&lt;/div&gt;',
+	data: function(){
+		return {
+			msg1:"asd"
+		};
+	}
+});
+
+let myVue = new Vue({
+	el: "#myvue",
+	template...</div><a href="/vue/2018/04/08/vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=vue">vue</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 04月08日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/vue/2018/04/08/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">vue学习-vue声明周期</a></h1>
+          <div class="m-article-content">生命周期
+
+let myVue = new Vue({
+	el: "#myvue",
+	template: '&lt;div&gt;&lt;/div&gt;',
+	data: {
+		test:1
+	},
+	beforeCreate: function(){
+		console.log("beforeCreate");
+	},
+	created: function(){
+		console.log("created");
+	},
+	beforeMount: function(){
+		console.log("beforeMount");
+	},
+	mounted: function(){
+		console.log("mounted");
+	},
+	beforeUpdate: fun...</div><a href="/vue/2018/04/08/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=vue">vue</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 04月08日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/19/Promise%E5%AD%A6%E4%B9%A0.html">Promise 学习</a></h1>
           <div class="m-article-content">Promise
 Promise用于异步编程，其实就是一种语法糖。
 
@@ -229,154 +284,110 @@ var pro = new Promise(function(resolve,reject){
 	resolve();
 });
 pro.then(function(){
-	...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/03/19/Promise%E5%AD%A6%E4%B9%A0.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+	...</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/19/Promise%E5%AD%A6%E4%B9%A0.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
           <a class="pill-button" href="/all.html?tag=ES6">ES6</a>
         </li><li>
           <a class="pill-button" href="/all.html?tag=promise">promise</a>
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月19日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">正则表达式</a></h1>
-          <div class="m-article-content">正则表达式概述
-正则用于匹配字符串，用于从字符串中检索，当然也可以用于替换；
-正则效率高，方便好用
-基本语法
-var patt=/pattern/modifiers;
-var patt=new RegExp(pattern,modifiers);
-
-
-其中，pattern表示表达式的模式；modifiers表示修饰符，用于表示是否区分大小写，是否全局匹配，是否多行匹配；
-
-修饰符
-i  //是否区分大小写
-g  //全局匹配
-m  //多行匹配
-
-
-元字符
-用于匹配单个字符，常用的如下：
-.      匹配任意字符，除了换行和行结束
-^     取非，例如[^0-9]表示非数字；以任意开头，例如/^is/表示以is开头
-|      或
-\w   任意数字字母下划线，等价[0-9a-z...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=ES6">ES6</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=promise">promise</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月26日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/%E6%B5%8B%E8%AF%95/2018/01/26/%E5%89%8D%E7%AB%AF%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html">前端单元测试</a></h1>
-          <div class="m-article-content">介绍
-单元测试（unit testing），是指对软件中的最小可测试单元进行检查和验证。对于单元测试中单元的含义，一般来说，要根据实际情况去判定其具体含义，如C语言中单元指一个函数，Java里单元指一个类，图形化的软件中可以指一个窗口或一个菜单等。总的来说，单元就是人为规定的最小的被测功能模块。单元测试是在软件开发过程中要进行的最低级别的测试活动，软件的独立单元将在与程序的其他部分相隔离的情况下进行测试。——百度百科。
-
-对于JavaScript来说，通常也是针对函数、对象和模块的测试。
-（最大覆盖率，需要覆盖到每一个条件语句）
-
-测试工具
-
-
-  测试管理工具：Karma
-  测试框架：Mocha, jasmine
-  断言库：Chai
-  测试浏览器：PhantomJs
-  测试覆...</div><a href="/%E6%B5%8B%E8%AF%95/2018/01/26/%E5%89%8D%E7%AB%AF%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">单元测试</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=karma">karma</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=jasmine">jasmine</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Coverage">Coverage</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月26日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/pwa/2018/01/03/PWA.html">PWA</a></h1>
-          <div class="m-article-content">简介
-一款浏览器模拟app的技术，断网仍然可以访问已经保存的页面。
-
-普通的网页可以改造为PWA页面
-
-  你只需要基于开放的 W3C 标准的 web 开发技术来开发一个app。不需要多客户端开发。
-  用户可以在安装前就体验你的 app。
-  不需要通过 AppStore 下载 app。app 会自动升级不需要用户升级。
-  用户会受到‘安装’的提示，点击安装会增加一个图标到用户首屏。
-  被打开时，PWA 会展示一个有吸引力的闪屏。
-  chrome 提供了可选选项，可以使 PWA 得到全屏体验。
-  必要的文件会被本地缓存，因此会比标准的web app 响应更快（也许也会比native app响应快）
-  安装及其轻量 – 或许会有几百 kb 的缓存数据。
-  网站的数据传输必须...</div><a href="/pwa/2018/01/03/PWA.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=PWA">PWA</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月03日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/02/js%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90.html">JS 文档自动生成</a></h1>
+</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/%E9%97%AD%E5%8C%85.html">闭包</a></h1>
           <div class="m-article-content">
-  jsdoc，生成md
-  esdoc，生成html
+  什么是闭包，什么时候用（js不是面向对象的，要想实现面向对象需要使用闭包来实现），有什么问题，内存泄漏？
 
 
-jsdoc文档地址
-http://www.css88.com/doc/jsdoc/index.html
 
-安装
-
-  npm install jsdoc
-  配置conf.json
-  
-    执行
-
-    jsdoc &lt;文件&gt;  -c conf.json &lt;-r&gt;
-
+  什么是闭包？
     
-
-    其中命令行的文件会被扫描;
-
-    如果source.include包含文件夹，-r会递归
+      有权访问另外一个函数中的局部变量的函数（js高级程序设计）；
+      函数对象可以通过作用域链相互关联起来，函数体内部的变量都可以保存在函数作用域内，从技术角度来说，所有的js函数都是闭包（js权威指南）；
+      闭包是函数和声明该函数的词法环境的组合（MDN）；
+    
   
-  conf.json字段说明
-     {
-     "tags": {
-         "allowUnknownTags": true,//允许自定义标签
-         "dictionaries": ...</div><a href="/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2018/01/02/js%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=doc">doc</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 01月02日</span></div>
+
+
+简言之，就是在一个方法内部定义一个新的方法，这个外部方法所成立的这个环境，就是一个闭包；内部方法共享一些公共变量；可用于解决一些作用域的问题。
+
+
+  什么时候用？
+    
+      提供局部作用域
+      共享私有变量，当一个函数...</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/%E9%97%AD%E5%8C%85.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=js">js</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E9%97%AD%E5%8C%85">闭包</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月10日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/npm/2017/12/11/npm-%E6%89%93%E5%8C%85%E6%B5%8B%E8%AF%95.html">npm 打包 测试</a></h1>
-          <div class="m-article-content">npm 同时运行多条命令
+</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/%E7%BB%A7%E6%89%BF.html">继承</a></h1>
+          <div class="m-article-content">原型链继承
 
-&amp;&amp; 逐条执行，&amp;并行执行
+  基本思想：利用原型让一个引用类型继承另外一个引用类型的属性和方法。
+  function Super(){
+	this.name = "name1";
+}
+Super.prototype = {
+	getName: function(){
+		return this.name;
+	}
+}
+function Sub(){}
+Sub.prototype = new Super();
+var subObj = new Sub();
+console.log(subObj.getName())
 
-对于有监听事件的，由于listen一直在执行，所以使用&amp;&amp;的时候下一条命令无法执行，所以有以下方式：
-"devdev": "node server/server.js &amp; node server/test.js"
-
-"dev:server1": "node server/server.js &amp;",
-"dev:server2": "node server/test.js &amp;",
-"dev": " npm run dev:server1 &amp;&amp; npm run dev:server2"
-
-"dev1": "node server/server.js",
-"...</div><a href="/npm/2017/12/11/npm-%E6%89%93%E5%8C%85%E6%B5%8B%E8%AF%95.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=npm">npm</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 12月11日</span></div>
+  
+  构造函数继承
+  基本思想：在子类型构造函数的内部调用 父类构造函数，通过使用call()和apply()方法可以在新创建的对象上执行构造函数。
+  function Sup...</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/%E7%BB%A7%E6%89%BF.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=js">js</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E7%BB%A7%E6%89%BF">继承</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E5%8E%9F%E5%9E%8B%E9%93%BE">原型链</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月10日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/npm/2017/12/11/npm-package.html">npm package.json</a></h1>
-          <div class="m-article-content">要求，严格的json格式
+</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84.html">数组</a></h1>
+          <div class="m-article-content">不使用循环创建数组
 
-{
-	"name": "name",//*必填，要求与项目名称一致，不允许空格和大写，要求小写字母，可以有短横线和下划线，但不能以横线或者下划线开头；当你的项目作为一个包发布后，其他项目引入的时候，引用名称便是该name
-	"version": "1.0.0",//*必填，固定三级格式
-	"main":"index.js",//程序的入口文件；当你的项目作为一个包发布后，其他项目引入的时候，默认引用该文件
-	"description":"",//描述
-	"keywords":"",//关键词，帮助检索
-	"homepage":"",//项目主页链接
-	"bugs":{
-		"url" : "https://github.com/owner/project/i...</div><a href="/npm/2017/12/11/npm-package.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=npm">npm</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 12月11日</span></div>
+var result = Object.keys(Array.apply(null,{length:100})).map(function(item){
+    	item = (parseInt(item)+1).toString();
+    	return item;
+    });
+
+
+</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=js">js</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E6%95%B0%E7%BB%84">数组</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月10日</span></div>
   </div>
 </div>
-</article></div><nav class="m-pagination"><p>共计 17 篇文章，3 页。</p>
+</article><article><h1><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/js%E5%8E%9F%E5%9E%8B%E9%93%BE.html">原型链</a></h1>
+          <div class="m-article-content">原型链
+当从一个对象哪里调取属性和方法时，如果该对象自身不存在这样的属性或者方法，那么会去自己的propotype对象那里去寻找，如果propotype那里没有，就会去propotype的propotype对象那里去寻找，一直到Object，（因为Object是所有对象的基类，而objec的propotype是undefined），这样形成了所谓的“原型链”。
+
+每一个函数都有prptotype属性；当将该函数作为构造函数的时候，其创建的实例都从prototype上继承构造函数的属性和方法。
+
+function F(name){
+    this.name = name;
+}
+F.prototype.getName=function(){
+    return this.name
+}
+...</div><a href="/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/03/10/js%E5%8E%9F%E5%9E%8B%E9%93%BE.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="dingxyan@163.com"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=js">js</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E5%8E%9F%E5%9E%8B%E9%93%BE">原型链</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=type">type</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">构造函数</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2018年 03月10日</span></div>
+  </div>
+</div>
+</article></div><nav class="m-pagination"><p>共计 33 篇文章，5 页。</p>
           <ul><li><div class="round-button inactive">
                 <div class="icon icon--prrevious"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -388,6 +399,10 @@ http://www.css88.com/doc/jsdoc/index.html
                     <a class="round-button" href="/blog/page2"><span>2</span></a>
                   </li><li>
                     <a class="round-button" href="/blog/page3"><span>3</span></a>
+                  </li><li>
+                    <a class="round-button" href="/blog/page4"><span>4</span></a>
+                  </li><li>
+                    <a class="round-button" href="/blog/page5"><span>5</span></a>
                   </li><li>
                 <a class="round-button" href="/blog/page2">
                   <div class="icon icon--next"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">

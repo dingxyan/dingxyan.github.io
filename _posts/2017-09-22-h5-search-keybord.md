@@ -2,7 +2,7 @@
 layout: post
 title: 手机键盘“开始”触发搜索
 categories: h5随记
-tags:  h5 js
+tags: h5 js
 ---
 
 html:

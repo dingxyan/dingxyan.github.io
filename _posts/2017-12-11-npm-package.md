@@ -2,7 +2,7 @@
 layout: post
 title:  npm package.json
 categories: npm
-tags:   npm
+tags: npm packagejson
 ---
 
 ### 要求，严格的json格式

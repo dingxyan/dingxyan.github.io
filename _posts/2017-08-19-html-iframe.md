@@ -2,7 +2,7 @@
 layout: post
 title:  我所知道的iframe
 categories: 前端知识积累
-tags:  iframe html js
+tags: js iframe html
 ---
 
 iframe在前端开发过程中应用广泛，其主要是将一个页面作为整体引用到一个页面中。一般有以下应用场景

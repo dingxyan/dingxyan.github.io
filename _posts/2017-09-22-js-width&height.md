@@ -2,7 +2,7 @@
 layout: post
 title:   js 各种宽高
 categories: 前端知识积累
-tags:   js width height
+tags: js css width height
 ---
 ## 1. Element.clientWidth Element.clientHeight
 用于获取元素宽高，例如 document.body.clientWidth，因此，如果页面没有内容，那么获取到的height为0；
