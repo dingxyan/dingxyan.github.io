@@ -69,6 +69,14 @@
 <lastmod>2017-11-09T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/11/17/js-nodejs-ajax-jsonp.html</loc>
+<lastmod>2017-11-17T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/nodejs/2017/11/30/nodejs-%E5%B0%8F%E5%8E%86%E5%8F%B2.html</loc>
+<lastmod>2017-11-30T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/12/02/js-%E5%9B%9E%E8%BD%A6%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95.html</loc>
 <lastmod>2017-12-02T00:00:00+00:00</lastmod>
 </url>
@@ -222,5 +230,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/blog/page7/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/page8/</loc>
 </url>
 </urlset>
