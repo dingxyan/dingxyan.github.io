@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/%E6%95%B0%E6%8D%AE%E5%BA%93/2017/08/17/db-bash%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F.html</loc>
+<lastmod>2017-08-17T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/08/19/js-iframe.html</loc>
 <lastmod>2017-08-19T00:00:00+00:00</lastmod>
 </url>
@@ -11,6 +15,10 @@
 <url>
 <loc>http://localhost:4000/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2017/08/19/js%E5%9F%BA%E7%A1%80-2.html</loc>
 <lastmod>2017-08-19T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2017/08/29/js-%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84call%E5%92%8Capply.html</loc>
+<lastmod>2017-08-29T00:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2017/09/13/js%E5%9F%BA%E7%A1%80-3.html</loc>
@@ -101,6 +109,10 @@
 <lastmod>2018-01-26T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/nodejs/2018/01/30/nodejs-%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92.html</loc>
+<lastmod>2018-01-30T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/02/06/js-sort.html</loc>
 <lastmod>2018-02-06T00:00:00+00:00</lastmod>
 </url>
@@ -117,7 +129,7 @@
 <lastmod>2018-02-06T00:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/webgl/2018/02/07/IEEE-754.html</loc>
+<loc>http://localhost:4000/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/2018/02/07/IEEE-754.html</loc>
 <lastmod>2018-02-07T00:00:00+00:00</lastmod>
 </url>
 <url>
