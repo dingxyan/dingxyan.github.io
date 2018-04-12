@@ -4,6 +4,11 @@ NAV:
     zh:      "主页"
     zh-Hans: "主页"
     zh-Hant: "主頁"
+  CATEGORY:
+    en:      "Category"
+    zh:      "分类"
+    zh-Hans: "分类"
+    zh-Hant: "分类"
   ALL:
     en:      "Archive"
     zh:      "归档"

@@ -21,6 +21,13 @@
     {%- assign __path = post.url -%}
     {%- include snippets/prepend-baseurl.html -%}
     {%- assign _url = __return -%}
+      ],"categories":[
+    {%- for category in post.categories -%}
+      "{{ category }}" {%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+    {%- assign __path = post.url -%}
+    {%- include snippets/prepend-baseurl.html -%}
+    {%- assign _url = __return -%}
       ],"url":"{{ _url }}","date":"{{ post.date | date: _format }}"}
   {%- endfor -%}
 ]}

@@ -10,5 +10,9 @@ key: page-about
 
 Welcome to my blog!
 
+Email: dingxyan@163.com
+
+[github](https://github.com/dingxyan/dingxyan.github.io)
+
 {% highlight javascript %}
 {% endhighlight %}

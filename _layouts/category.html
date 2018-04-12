@@ -1,0 +1,41 @@
+---
+layout: base
+titles:
+  en: Category
+  zh: 分类
+  zh-Hans: 分类
+  zh-Hant: 分类
+---
+<div class="m-all js-all">
+  <div class="main">
+    <div class="m-search-box js-search-box">
+      <div class="icon-search">{%- include icon/search.svg -%}</div>
+      <input type="text" />
+      <div class="icon-clear">{%- include icon/clear.svg -%}</div>
+    </div>
+
+    <div class="m-tags js-tags">
+      <ul>
+      <li>
+        <button type="button" class="js-article-tag js-tag-show-all all pill-button inactive" data-encode="">
+          Show All<div class="tag-count">{{ site.posts | size }}</div>
+        </button>
+      </li>
+      
+      {% for category in site.categories %}
+      <li><button type="button" class="js-article-tag tag-{{ c_index }} pill-button inactive" data-encode="{{ tag[0] | strip | url_encode }}">
+          <span>{{ category | first }}</span><div class="tag-count">{{ category | last | size }}</div>
+        </button>
+      </li>
+    <!-- <ul class="arc-list">
+        {% for post in category.last %}
+            <li>{{ post.date | date:"%d/%m/%Y"}}<a href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul> -->
+      {% endfor %}
+      </ul>
+    </div>
+
+    <div class="js-result m-result"></div>
+  </div>
+</div>

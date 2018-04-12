@@ -211,6 +211,9 @@
 <loc>http://localhost:4000/all.html</loc>
 </url>
 <url>
+<loc>http://localhost:4000/category.html</loc>
+</url>
+<url>
 <loc>http://localhost:4000/</loc>
 </url>
 <url>

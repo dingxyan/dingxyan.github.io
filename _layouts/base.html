@@ -27,6 +27,8 @@
       {%- include scripts/post.html -%}
     {%- elsif page.layout == "all" -%}
       {%- include scripts/all.html -%}
+    {%- elsif page.layout == "category" -%}
+      {%- include scripts/category.html -%}
     {%- endif -%}
     {%- include utils/mathjax.html -%}
     {%- include utils/mermaid.html -%}
